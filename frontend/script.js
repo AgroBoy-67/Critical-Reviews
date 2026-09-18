@@ -43,6 +43,8 @@ gsap.to(".titulosLogin", {
 const FormLogin = document.getElementById('FormLogin');
 const FormCadastro = document.getElementById('FormCadastro')
 
+if(FormLogin || FormCadastro){
+
 class Registro{
     constructor( id, nome, email,senha){
         this.id = id
@@ -57,6 +59,7 @@ class Login{
         this.senha = senha
         this.email = email
     }
+
 }
 
 class Gerenciador{
@@ -78,43 +81,67 @@ verificarEmail(email) {
         return NewUser;
     }
 
+        verificarEmailLogin(email, senha){
+        const login = new Login(email, senha);
+        console.log(login);
+
+        const usuario = NewUser.usuarios.find(
+            usuario => usuario.email === login.email
+        );
+        if (!usuario) {
+            alert("Usuário não encontrado");
+            return;
+        }
+        if (usuario.senha !== login.senha) {
+            alert("Senha incorreta.");    
+        return;
+        } 
+        alert("Login realizado!");
+    }
+
 }
 
 const NovoUser = new Gerenciador();
 
-const email = document.getElementById('EmailC')
-const nome = document.getElementById('Nome')
-const senha = document.getElementById('SenhaC')
-const senhaCC = document.getElementById('SenhaCC')
+const email = document.getElementById('EmailC');
+const nome = document.getElementById('Nome');
+const senha = document.getElementById('SenhaC');
+const senhaCC = document.getElementById('SenhaCC');
 
+const emailL = document.getElementById('Email');
+const senhaL = document.getElementById('Senha');
+
+
+if(FormCadastro){
 FormCadastro.addEventListener('submit', (e) => {
-e.preventDefault();
-const emailC = email.value.trim();
-const nomeC = nome.value.trim();
-const senhaI = senha.value.trim();
-const senhaC = senhaCC.value.trim();
+    e.preventDefault();
+    const emailC = email.value.trim();
+    const nomeC = nome.value.trim();
+    const senhaI = senha.value.trim();
+    const senhaC = senhaCC.value.trim();
 
-if ( emailC === "" || nomeC === "" || senhaI === "" || senhaC === "") {
-    alert("Complete os campos vazios")
-    return;
-}
-if(senhaI !== senhaC){
-    alert("As senhas não são iguais (nada banaca)")
-    return
-}
+    if ( emailC === "" || nomeC === "" || senhaI === "" || senhaC === "") {
+        alert("Complete os campos vazios")
+        return;
+    }
+    if(senhaI !== senhaC){
+        alert("As senhas não são iguais.")
+        return
+    }
 
- if(NovoUser.verificarEmail(emailC)){
- alert('Esse email já existe aaaa')
-}
+    if(NovoUser.verificarEmail(emailC)){
+        alert('Esse email já existe.')
+    }
 
-else{
-    NovoUser.salvarUser(nomeC, emailC, senhaI);
-    alert("Wowyzowie algo bacana ocorreu bazinga!")
-    console.log(NovoUser.usuarios);
-    FormCadastro.reset()
-}
-})
+    else{
+        NovoUser.salvarUser(nomeC, emailC, senhaI);
+        alert("Usuário cadastrado com sucesso.")
+        console.log(NovoUser.usuarios);
+        FormCadastro.reset()
+    }
+})}
 
+}
 // FIM INDEX.HTML/CADASTRA.HTML
 
 // --| AVALIAR.HTML

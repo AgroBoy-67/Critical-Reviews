@@ -90,42 +90,61 @@ textarea {
 }
 
 /*
+    FIM CSS HEADER
+*/
+
+/*
     configuracoes.html
 */
 
-.configuracoesBoxes {
-    display: grid;
-    grid-template-columns: 0.4fr 1.3fr 1.3fr;
-    gap: 3%;
-    width: 90%;
-    margin: 5% auto;
+.mainConfig {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .boxConfiguracao {
-    min-height: 260px;
-    padding: 4%;
-    box-sizing: border-box;
-    background-color: rgb(5, 5, 99);
-    border: 4px solid rgb(255, 255, 143);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background-color: rgb(2, 0, 62);
+    width: 40vw;
+    padding: 3%;
+    border: solid rgb(255, 255, 143) 6px;
     border-radius: 15px;
+    margin: 2%;
+    transition: 0.5s;
 }
 
-#boxPerfil {
+.boxConfiguracao:hover {
+    transform: scale(1.02);
+}
+
+.botaoBox {
+    color: white;
+}
+
+.botaoBox:active {
+    transform: scale(0.98);
+}
+
+.boxConfiguracao2 {
     display: flex;
-    align-items: center;
-    gap: 5%;
+    flex-direction: column;
+    margin: 1%;
 }
 
-.fotoPerfil {
-    width: 110px;
-    height: 110px;
-    object-fit: cover;
-    border: 3px solid rgb(255, 255, 143);
-    border-radius: 50%;
+.boxTitulos {
+    font-family: fTitulos;
+    font-size: 45px;
+}
+
+.boxDescricao {
+    opacity: 70%;
+    font-size: 18px;
 }
 
 /*
-    FIM CSS HEADER
+    fim configuracoes.html
 */
 
 /*
@@ -300,6 +319,17 @@ textarea {
 
 .titulosLogin {
     transform: rotate(-2deg);
+}
+
+.bodyLogin {
+    background-image: url("foto/fundoNoite.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: grid;
+    place-items: center;
+    margin: 25vh;
 }
 
 /*
