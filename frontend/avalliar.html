@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliar</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- AOS -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <img src="foto/Critical Reviews.png" alt="Critical Reviews" width="65%" id="logo">
+        </div>
+        <nav class="nav">
+            <a href="inicio.html" class="aDoNav">Explorar</a>
+            <a href="avalliar.html" class="aDoNav">Avaliar</a>
+            <a href="configuracoes.html" class="aDoNav">Configuracoes</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <form id="formEnviar">
+                <div id="headerForm">
+                    <h1>Enviar sua review</h1>
+                </div>
+                <div id="bodyForm">
+                    <div id="divImagem">
+                        <div>
+                            <label for="fotoForm" id="enviarFoto">Enviar uma foto</label>
+                            <input type="file" id="fotoForm" style="display: none;">
+                        </div>
+                        <div id="imagePreview">
+                            <p id="textoVazio">Nenhuma imagem selecionada.</p>
+                            <img id="preview" src="" alt="" width="100%" style="display: none;">
+                        </div>
+                    </div>
+                    <div id="bodyForm2">
+                        <div class="divsForm">
+                            <label for="categoria" class="labelForm">O que gostaria de avaliar?</label>
+                            <select name="categoria" class="inputForm" id="categoria">
+                                <option value="" selected disabled>- - -</option>
+                                <option value="pessoa">Uma pessoa</option>
+                                <option value="lugar">Um lugar</option>
+                                <option value="evento">Um evento</option>
+                                <option value="objeto">Um objeto</option>
+                                <option value="midia">Uma mídia ou produção</option>
+                            </select>
+                        </div>
+                        <div class="divsForm">
+                            <label for="nomeDaCoisa" class="labelForm">Qual o nome do item avaliado?</label>
+                            <input type="text" id="nomeDaCoisa" class="inputForm">
+                        </div>
+                        <div class="divsForm">
+                            <label for="avaliacao" class="labelForm">Escreva sua avaliação:</label>
+                            <textarea name="avaliacao" id="avaliacao" class="inputForm"></textarea>
+                        </div>
+                        <div class="divsForm">
+                            <label for="estrelas" class="labelForm">Quantas estrelas tal coisa merece?</label>
+                            <div id="divEstrelas">
+                                <button class="estrela" type="button" id="estrela1" onclick="dar1estrela()"><img src="foto/estrela vazia.png" id="estrelaVazia1"><img src="foto/estrela cheia.png"  style="display: none;" id="estrelaCheia1"></button>
+                                <button class="estrela" type="button" id="estrela2" onclick="dar2estrela()"><img src="foto/estrela vazia.png" id="estrelaVazia2"><img src="foto/estrela cheia.png"  style="display: none;" id="estrelaCheia2"></button>
+                                <button class="estrela" type="button" id="estrela3" onclick="dar3estrela()"><img src="foto/estrela vazia.png" id="estrelaVazia3"><img src="foto/estrela cheia.png"  style="display: none;" id="estrelaCheia3"></button>
+                                <button class="estrela" type="button" id="estrela4" onclick="dar4estrela()"><img src="foto/estrela vazia.png" id="estrelaVazia4"><img src="foto/estrela cheia.png"  style="display: none;" id="estrelaCheia4"></button>
+                                <button class="estrela" type="button" id="estrela5" onclick="dar5estrela()"><img src="foto/estrela vazia.png" id="estrelaVazia5"><img src="foto/estrela cheia.png"  style="display: none;" id="estrelaCheia5"></button>
+                            </div>
+                        </div>
+                        <div class="divsForm">
+                            <button class="botoes" type="submit">Enviar avaliação</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
