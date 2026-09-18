@@ -141,6 +141,20 @@ FormCadastro.addEventListener('submit', (e) => {
     }
 })}
 
+    if(FormLogin){
+    FormLogin.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const email = emailLogin.value.trim();
+        const senha = senhaLogin.value.trim();
+        if(email === "" || senha === "") {
+            alert("Complete os campos.")
+            return;
+        }
+        NovoUser.verificarEmailLogin(email, senha)
+    })}
+
+
+
 }
 // FIM INDEX.HTML/CADASTRA.HTML
 
