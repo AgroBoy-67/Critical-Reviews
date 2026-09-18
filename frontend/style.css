@@ -229,6 +229,47 @@ textarea {
     fim avaliar.html
 */
 
+/*
+    index.html/cadastra.html
+*/
+
+.LCBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    margin: 10% auto 0;
+    padding: 30px;
+    box-sizing: border-box;
+    border: 4px solid rgb(255, 255, 143);
+    border-radius: 15px;
+}
+
+.FormLC {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.labelForm2 {
+    font-size: 20px;
+}
+
+.aDeNavegacao {
+    color: rgb(255, 255, 143);
+    margin: 0.5%;
+}
+
+.titulosLogin {
+    transform: rotate(-2deg);
+}
+
+/*
+    fim do index.html/cadastra.html
+*/
+
 @media (max-width:768px) {
 
     .nav {

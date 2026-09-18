@@ -1,13 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
+    <!-- AOS -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
+
 <body>
-    
-    <script src="script.js"></script>
+
+    <div class="LCBox">
+
+        <h1 style="font-family: fTitulos; color: rgb(255, 255, 143)" class="titulosLogin">Login</h1><br>
+
+        <form id="FormLogin" class="FormLC">
+            <label class="labelForm2">E-mail: </label>
+            <input id="Email" type="email" placeholder="E-mail" class="inputForm">
+            <label class="labelForm2">Senha: </label>
+            <input id="Senha" type="password" placeholder="Senha" class="inputForm">
+            <button type="submit" id="buttonForm" class="botoes"> Entrar </button>
+        </form>
+
+        <p> Não possui uma conta? </p><a href="cadastra.html"  class="aDeNavegacao">Cadastre-se</a> 
+
+    </div>
+
+
+<!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
 </body>
+
 </html>

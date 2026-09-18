@@ -18,9 +18,104 @@ gsap.to("#logo", {
     yoyo: true
 })
 
+gsap.to(".aDeNavegacao", {
+    scale: 1.2,
+    duration: 2.5,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true
+})
+
+gsap.to(".titulosLogin", {
+    rotate: 2,
+    duration: 3,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true
+})
+
 //
 //  FIM AOS GSAP
 //
+
+// --| INDEX.HTML/CADASTRA.HTML
+
+const FormLogin = document.getElementById('FormLogin');
+const FormCadastro = document.getElementById('FormCadastro')
+
+class Registro{
+    constructor( id, nome, email,senha){
+        this.id = id
+        this.senha = senha
+        this.email = email
+        this.nome = nome
+    }
+}
+
+class Login{
+    constructor(email, senha){
+        this.senha = senha
+        this.email = email
+    }
+}
+
+class Gerenciador{
+    constructor(){
+        this.proximoId = 1
+        this.usuarios = []
+    }
+
+verificarEmail(email) {
+    return this.usuarios.some(
+        usuario => usuario.email === email
+    )
+}
+
+    salvarUser(nome, emailC, senha){
+        const NewUser = new Registro( this.proximoId, nome, emailC, senha)
+        this.usuarios.push(NewUser)
+        this.proximoId++
+        return NewUser;
+    }
+
+}
+
+const NovoUser = new Gerenciador();
+
+const email = document.getElementById('EmailC')
+const nome = document.getElementById('Nome')
+const senha = document.getElementById('SenhaC')
+const senhaCC = document.getElementById('SenhaCC')
+
+FormCadastro.addEventListener('submit', (e) => {
+e.preventDefault();
+const emailC = email.value.trim();
+const nomeC = nome.value.trim();
+const senhaI = senha.value.trim();
+const senhaC = senhaCC.value.trim();
+
+if ( emailC === "" || nomeC === "" || senhaI === "" || senhaC === "") {
+    alert("Complete os campos vazios")
+    return;
+}
+if(senhaI !== senhaC){
+    alert("As senhas não são iguais (nada banaca)")
+    return
+}
+
+ if(NovoUser.verificarEmail(emailC)){
+ alert('Esse email já existe aaaa')
+}
+
+else{
+    NovoUser.salvarUser(nomeC, emailC, senhaI);
+    alert("Wowyzowie algo bacana ocorreu bazinga!")
+    console.log(NovoUser.usuarios);
+    FormCadastro.reset()
+}
+})
+
+// FIM INDEX.HTML/CADASTRA.HTML
 
 // --| AVALIAR.HTML
 
@@ -207,8 +302,3 @@ form.addEventListener("submit", function(e) {
 
 // FIM INICIO.HTML
 
-// --| INDEX.HTML
-
-
-
-// FIM INDEX.HTML
