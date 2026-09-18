@@ -17,6 +17,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -86,6 +87,41 @@ textarea {
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
     justify-content: center;
+}
+
+/*
+    configuracoes.html
+*/
+
+.configuracoesBoxes {
+    display: grid;
+    grid-template-columns: 0.4fr 1.3fr 1.3fr;
+    gap: 3%;
+    width: 90%;
+    margin: 5% auto;
+}
+
+.boxConfiguracao {
+    min-height: 260px;
+    padding: 4%;
+    box-sizing: border-box;
+    background-color: rgb(5, 5, 99);
+    border: 4px solid rgb(255, 255, 143);
+    border-radius: 15px;
+}
+
+#boxPerfil {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+}
+
+.fotoPerfil {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border: 3px solid rgb(255, 255, 143);
+    border-radius: 50%;
 }
 
 /*
@@ -270,22 +306,127 @@ textarea {
     fim do index.html/cadastra.html
 */
 
-@media (max-width:768px) {
-
-    .nav {
-        place-items: center;  
-    }
-
+@media (max-width: 768px) {
     .header {
         grid-template-columns: 1fr;
         padding: 2%;
     }
-    
+
+    .nav {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 12px;
+        padding-bottom: 10px;
+    }
+
     .aDoNav {
+        width: 100%;
+        text-align: center;
         font-size: 20px;
+        padding: 12px 10px;
+    }
+
+    .configuracoesBoxes {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        width: 92%;
     }
 
     #logo {
         display: none;
+    }
+
+    #formEnviar {
+        margin: 5% 3%;
+        height: auto;
+    }
+
+    #bodyForm {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    #divImagem {
+        grid-template-rows: auto auto;
+    }
+
+    #enviarFoto,
+    #imagePreview {
+        width: 100%;
+        min-height: 180px;
+        height: auto;
+    }
+
+    #divEstrelas {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(42px, 1fr));
+        gap: 10px;
+        justify-items: center;
+    }
+
+    .estrela {
+        width: 52px;
+        height: 52px;
+    }
+
+    .labelForm {
+        font-size: 24px;
+    }
+
+    .inputForm,
+    #nome,
+    #categoria {
+        width: 100%;
+        margin: 8px 0;
+    }
+
+    #avaliacao {
+        min-height: 120px;
+    }
+
+    .LCBox {
+        width: 92%;
+        margin-top: 18%;
+        padding: 24px 18px;
+    }
+
+    .FormLC {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .header {
+        padding: 4% 2%;
+    }
+
+    .aDoNav {
+        font-size: 18px;
+    }
+
+    #formEnviar {
+        margin: 4% 2%;
+        border-radius: 12px;
+    }
+
+    .labelForm {
+        font-size: 20px;
+    }
+
+    .botoes {
+        width: 100%;
+    }
+
+    .fotoPerfil {
+        width: 80px;
+        height: 80px;
+    }
+
+    .LCBox {
+        margin-top: 25%;
     }
 }
