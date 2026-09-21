@@ -83,9 +83,8 @@ verificarEmail(email) {
 
         verificarEmailLogin(email, senha){
         const login = new Login(email, senha);
-        console.log(login);
 
-        const usuario = NewUser.usuarios.find(
+        const usuario = this.usuarios.find(
             usuario => usuario.email === login.email
         );
         if (!usuario) {
@@ -144,32 +143,33 @@ FormCadastro.addEventListener('submit', (e) => {
     if(FormLogin){
     FormLogin.addEventListener("submit", function(e) {
         e.preventDefault();
-        const email = emailLogin.value.trim();
-        const senha = senhaLogin.value.trim();
+        const email = emailL.value.trim();
+        const senha = senhaL.value.trim();
         if(email === "" || senha === "") {
             alert("Complete os campos.")
             return;
         }
         NovoUser.verificarEmailLogin(email, senha)
     })}
-
-
-
 }
 // FIM INDEX.HTML/CADASTRA.HTML
 
 // --| AVALIAR.HTML
 
 //colocar a imagem selecionada para o usuario ver
-document.getElementById('fotoForm').addEventListener('change', function(e) {
-    document.getElementById("textoVazio").style.display = "none";
-    const file = e.target.files[0];
-    if (file) {
-        const preview = document.getElementById('preview');
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = 'block';
-    }
-});
+const fotoForm = document.getElementById('fotoForm');
+
+if (fotoForm) {
+    fotoForm.addEventListener('change', function(e) {
+        document.getElementById("textoVazio").style.display = "none";
+        const file = e.target.files[0];
+        if (file) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
+    });
+}
 
 
 //formulario para enviar a avaliação
@@ -297,7 +297,9 @@ class Avaliação {
 
 let avaliacoes = [];
 
-form.addEventListener("submit", function(e) {
+const formEnviar = document.getElementById("formEnviar")
+if (formEnviar) {
+formEnviar.addEventListener("submit", function(e) {
     e.preventDefault();
 
     const categoria = document.getElementById("categoria").value;
@@ -330,10 +332,10 @@ form.addEventListener("submit", function(e) {
 
     estrela5Vazia.style.display = "block";
     estrela5Cheia.style.display = "none";
-    form.reset();
-
+    formEnviar.reset();
     console.log(novaAvaliacao)
 })
+}
 
 //  --| FIM AVALIAR.HTML
 
