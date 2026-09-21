@@ -333,6 +333,9 @@ formEnviar.addEventListener("submit", function(e) {
     estrela5Vazia.style.display = "block";
     estrela5Cheia.style.display = "none";
     formEnviar.reset();
+    document.getElementById("preview").src ="";
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("textoVazio").style.display = "block";
     console.log(novaAvaliacao)
 })
 }

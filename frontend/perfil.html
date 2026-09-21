@@ -3,26 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Inicio</title>
     <link rel="stylesheet" href="style.css">
+
     <!-- AOS -->
     <link rel="stylesheet"
         href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
+
 <body>
-    <header class="header">
+    <header class="header flex justify-between items-center">
         <div>
             <img src="foto/Critical Reviews.png" alt="Critical Reviews" width="65%" id="logo">
         </div>
-        <nav class="nav">
+
+        <nav class="nav grid  ">
             <a href="inicio.html" class="aDoNav">Explorar</a>
             <a href="avalliar.html" class="aDoNav">Avaliar</a>
             <a href="configuracoes.html" class="aDoNav">Configuracoes</a>
         </nav>
     </header>
-    <main>
-        
+
+    <main class="perfil flex justify-center">
+        <section class="perfilCard text-center" data-aos="zoom-in">
+            <p class="md:text-5xl">Foto de perfil:</p>
+            <img class="fotoPerfil" src="foto/semFoto.png" alt="Foto de perfil">
+            <button class="bt-Perfil text-yellow-400 font-bold" data-aos="fade-up" data-aos-delay="200">Mudar Foto</button>
+            <p class="md:text-5xl">Nome:</p>
+            <h1 class="nomePerfil mt-4 text-center text-2xl">
+                Luiz Gustavo
+            </h1>
+        </section>
     </main>
 
     <!-- GSAP -->
