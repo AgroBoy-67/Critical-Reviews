@@ -379,6 +379,47 @@ textarea {
     fim do index.html/cadastra.html
 */
 
+/*
+    inicio.html
+*/
+
+
+#avaliacaoSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+}
+
+.avaliacao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, rgb(3, 2, 35), rgb(17, 14, 100));
+    border: 1px solid rgb(255, 255, 143);
+    padding: 2%;
+    margin: 2%;
+    width: 25vw;
+    max-height: 96vh;
+}
+
+.avaliacaoTitulo {
+    color: rgb(255, 255, 143);
+    font-size: 190%;
+    margin: 0.5%;
+}
+
+.avaliacaoSubTitulo {
+    margin: 0 0.5% 1% 0.5%;
+}
+
+.avaliacaoDescricao {
+    font-size: 140%;
+}
+
+/*
+    fim inicio.html
+*/
+
 @media (max-width: 768px) {
     .header {
         grid-template-columns: 1fr;
@@ -548,6 +589,29 @@ textarea {
         font-size: 24px;
     }
 
+    /*
+        fim congig.html
+    */
+
+    /*
+        inicio.html
+    */
+
+    #avaliacaoSection {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .avaliacao {
+        width: 60vw;
+        height: 150vh;
+        padding: 20px;
+    }
+
+    /*
+        fim inicio.html
+    */
+
 }
 
 @media (max-width: 480px) {
@@ -600,6 +664,17 @@ textarea {
         padding: 8px 3px;
         font-size: 25px;
         text-align: center;
+    }
+
+    #avaliacaoSection {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .avaliacao {
+        width: 80vw;
+        height: 90vh;
+        padding: 20px;
     }
 
     
