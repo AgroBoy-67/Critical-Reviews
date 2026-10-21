@@ -1,0 +1,71 @@
+@font-face {
+    font-family: Titulos;
+    src: url(fontes/starshines/Starshines.otf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/*
+    --| HEADER
+*/
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    padding: 0.01% 0.01% 0.01% 1%;
+    background-color: rgb(0, 0, 20);
+    color: white;
+}
+
+body {
+    background-color: rgb(6, 6, 72);
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    gap: 20%;
+}
+
+.aDoNav {
+    color: white;
+    font-family: Titulos;
+}
+
+.divFoto {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    place-items: center;
+    justify-content: flex-end;
+    font-family: Titulos;
+    color: white;
+}
+
+.divFoto img {
+    border-radius: 50%;
+}
+
+.divConfig {
+    display: flex;
+    place-items: center;
+    justify-content: flex-end;
+    margin-right: 8%;
+}
+
+/*
+    -- | FIM DO HEADER
+*/
