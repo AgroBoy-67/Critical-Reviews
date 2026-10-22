@@ -5,25 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliar</title>
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="css/avaliar.css">
 </head>
 <body>
     <header class="header">
         <div>
-            <a href="inicio.html"><img src="css/fotos/logo.png" alt="Logo" width="70px"></a>
+            <a href="inicio.html"><img src="css/fotos/logo.png" alt="Logo" width="65px" class="logo"></a>
         </div>
         <nav class="nav">
             <a href="inicio.html" class="aDoNav">Inicio</a>
             <a href="avaliar.html" class="aDoNav">Avaliar</a>
             <a href="admin.html" class="aDoNav">Admin</a>
         </nav>
-        <a href="perfil.html" class="divFoto">
-            <img src="css/fotos/semFoto.png" alt="Sem foto" width="50px">
-            <p>Sem nome</p>
+        <a href="perfil.html">
+            <div class="divFoto">
+                <img src="css/fotos/semFoto.png" alt="Sem foto" width="40px">
+                <p>Sem nome</p>
+            </div>
         </a>
         <div class="divConfig">
-            <a href="config.html" class="aDoNav"><img src="css/fotos/config.png" alt="Configurações" width="50px"></a>
+            <a href="config.html" class="aDoNav"><img src="css/fotos/config.png" alt="Configurações" width="40px" class="engrenagem"></a>
         </div>
     </header>
+    <main>
+        <section class="sec-avaliar">
+            <div class="header-avaliar">
+                <h1>Envie sua avaliação</h1>
+            </div>
+            <form>
+                <div class="body-avaliar">
+                    <div class="avaliar-part1">
+                        <div>
+                            <button>Enviar foto</button>
+                        </div>
+                        <div class="imagemPreview-avaliar">
+                            <input type="file" id="imagem" accept="image/*" style="display: none;">
+                            <label for="imagem" id="escolherImagem">Escolher imagem</label>
+                        </div>
+                    </div>
+                    <div class="avaliar-part2">
+                        <div class="input-box">
+                            <label for="nome">Nome do item que quer avaliar: </label>
+                            <input type="text" name="nome-item" id="nome" placeholder="Nome do item...">
+                        </div>
+                        <div class="input-box">
+                            <label for="categoria">Classifique seu item: </label>
+                            <select id="categoria-item">
+                                <option value="" selected disabled> - Selecione - </option>
+                                <option value="pessoa">Uma pessoa</option>
+                                <option value="lugar">Um lugar</option>
+                                <option value="situacao">Uma situação</option>
+                                <option value="evento">Um evento</option>
+                                <option value="objeto">Um objeto</option>
+                                <option value="midia">Uma peça de mídia ou entreterimento</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label for="descricao">Descreva sua avaliação: </label>
+                            <textarea name="descricao" id="descricao-item" rows="4" placeholder="Descreva o item..."></textarea>
+                        </div>
+                        <div>
+                            <h2>Quantas estrelas o item merece?</h2>
+                            <div class="estrelas-box">
+                                <div>
+                                    <img src="css/fotos/estrela vazia.png" alt="Estrela vazia" width="100px">
+                                    <img src="css/fotos/estrela cheia.png" alt="Estrela cheia" width="100px" style="display: none;">
+                                </div>
+                                <div>
+                                    <img src="css/fotos/estrela vazia.png" alt="Estrela vazia" width="100px">
+                                    <img src="css/fotos/estrela cheia.png" alt="Estrela cheia" width="100px" style="display: none;">
+                                </div>
+                                <div>
+                                    <img src="css/fotos/estrela vazia.png" alt="Estrela vazia" width="100px">
+                                    <img src="css/fotos/estrela cheia.png" alt="Estrela cheia" width="100px" style="display: none;">
+                                </div>
+                                <div>
+                                    <img src="css/fotos/estrela vazia.png" alt="Estrela vazia" width="100px">
+                                    <img src="css/fotos/estrela cheia.png" alt="Estrela cheia" width="100px" style="display: none;">
+                                </div>
+                                <div>
+                                    <img src="css/fotos/estrela vazia.png" alt="Estrela vazia" width="100px">
+                                    <img src="css/fotos/estrela cheia.png" alt="Estrela cheia" width="100px" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="enviar-avaliar">Enviar review</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

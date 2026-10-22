@@ -17,6 +17,10 @@ a {
     color: black;
 }
 
+textarea {
+    resize:none;
+}
+
 /*
     --| HEADER
 */
@@ -27,6 +31,7 @@ a {
     padding: 0.01% 0.01% 0.01% 1%;
     background-color: rgb(0, 0, 20);
     color: white;
+    padding:  0 0 2px 8px;
 }
 
 body {
@@ -43,16 +48,40 @@ body {
 .aDoNav {
     color: white;
     font-family: Titulos;
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+.aDoNav:hover {
+    transform: scale(1.1);
+    color: rgb(255, 254, 211);
+}
+
+.logo {
+    transition: 0.5s;
+}
+
+.logo:hover {
+    transform: scale(1.2);
 }
 
 .divFoto {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    place-items: center;
-    justify-content: flex-end;
+    margin-top: 5%;
+    padding: 1%;
+    border-radius: 8px;
+    align-items: center;
+    width: fit-content;
     font-family: Titulos;
     color: white;
+    transition: 0.5s;
+}
+
+.divFoto:hover {
+    transform: scale(1.1);
+    background-color: rgb(4, 0, 46);
 }
 
 .divFoto img {
