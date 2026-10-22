@@ -122,3 +122,12 @@
     transition: 0.2s;
     transform: scale(0.95);
 }
+
+.estrela {
+    background:none;
+    border: none;
+}
+
+.estrela img {
+    width: 120px;
+}
