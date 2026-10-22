@@ -70,6 +70,7 @@
 .input-box {
     display: flex;
     flex-direction: column;
+    margin-bottom:2%;
 }
 
 .input-box label {
@@ -83,7 +84,11 @@
     background-color: rgb(5, 0, 39);
     border: black 2px solid;
     color: white;
-    font-family: cursive;
+    transition: 1s;
+}
+
+.input-box input:focus, select:focus, textarea:focus {
+    transform: scale(1.01);
 }
 
 .estrelas-box {
@@ -107,4 +112,13 @@
     font-size: larger;
     border: none;
     border-radius: 15px;
+    transition: 0.5s;
+}
+
+.enviar-avaliar:hover {
+    transform: scale(1.05);
+}
+.enviar-avaliar:active {
+    transition: 0.2s;
+    transform: scale(0.95);
 }

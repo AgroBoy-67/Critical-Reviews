@@ -1,0 +1,36 @@
+.sec-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
+
+.config-box {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 500px;
+    gap: 10px;
+    background-color: rgb(8, 0, 46);
+    color: white;
+    padding: 2%;
+    border: white 3px solid;
+    margin-top: 5%;
+    transition: 0.2s;
+}
+
+.config-box:hover {
+    transform: scale(1.05);
+}
+
+.config-box:active {
+    transform: scale(0.95);
+}
+
+.config-box h2 {
+    font-family: Titulos;
+    font-size: 38px;
+}
+
+.config-box p {
+    font-family: cursive;
+    font-size: 20px;
+}
