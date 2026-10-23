@@ -1,3 +1,19 @@
+const fotoForm = document.getElementById('fotoForm');
+const form = document.getElementById("formEnviar");
+
+if (fotoForm) {
+    fotoForm.addEventListener('change', function(e) {
+        document.getElementById("textoVazio").style.display = "none";
+        const file = e.target.files[0];
+        if (file) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
+    });
+}
+
+
 const estrelasVazias = [
     document.getElementById("estrelaVazia1"),
     document.getElementById("estrelaVazia2"),
@@ -41,3 +57,41 @@ function escolhaEstrelas(quantia) {
  
 // Inicializa visualmente todas para vazias e zera a variável
 escolhaEstrelas(0);
+
+class Avaliação {
+    constructor(categoria,nomeItem,descricao,estrelas) {
+        this.categoria = categoria;
+        this.nomeItem = nomeItem;
+        this.descricao = descricao;
+        this.estrelas = estrelas;
+    }
+}
+
+let avaliacoes = [];
+
+const formEnviar = document.getElementById("formEnviar")
+if (formEnviar) {
+formEnviar.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const categoria = document.getElementById("categoria").value;
+    const nomeDaCoisa = document.getElementById("nomeDaCoisa").value;
+    const avaliacao = document.getElementById("avaliacao").value;
+
+    if (estrelas == 0 || nomeDaCoisa.trim() == "" || avaliacao.trim() == "") {
+        alert("Preencha todas as informações...")
+        return;
+    }
+
+    const novaAvaliacao = new Avaliação(categoria,nomeDaCoisa,avaliacao,estrelas)
+
+    avaliacoes.push(novaAvaliacao);
+    alert("Avaliação enviada!");
+    estrelas = 0;
+    formEnviar.reset();
+    document.getElementById("preview").src = "";
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("textoVazio").style.display = "block";
+    console.log(novaAvaliacao)
+})
+}

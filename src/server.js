@@ -1,7 +1,7 @@
 const express = require ('express')
 const mysql = require ('mysql2/promise')
 const bcrypt = require ('bcrypt')
-const cookieParser = require ("cookie-parser")
+const  cookieParser = require ("cookie-parser")
 const helmet = require ("helmet");
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -83,25 +83,45 @@ app.post('/api/cadastro', async (req, res ) =>{
 })
 
 app.post('/api/login', async (req, res) =>{
+
+    try{
+
     const {emailL, senhaL} = req.body
     if(!emailL || !senhaL){
         return res.status(400).json({erro: 'Preencha todos os campos'})
     }
 
-    const sql = `SELECT * from Uuario WHERE email = ?`
+    const sql = `SELECT * from Uuario WHERE  email = ?`
     const resultado = await consultar(sql, [
-            emailL.trim().toLowerCase(),
-            senhaHash
+            emailL.trim().toLowerCase()
             ])
+            
+     if (resultado.length === 0) {
+            return res.status(401).json({
+                erro: 'E-mail ou senha incorretos'
+            })
+        }
+
+        const senhaVerify = await bcrypt.compare(
+            senhaL,
+            resultado[0].SenhaHash
+        )
+        if (!senhaVerify) {
+            return res.status(401).json({erro: 'E-mail ou senha incorretos'})
+        }
+        login(res, resultado[0])
+        return res.json({mensagem: 'Login realizado com sucesso!'})
+
+        } 
+        catch(erro) {
+        console.error(erro)
+        return res.status(500).json({
+            erro: 'Erro interno do servidor'
+        })
+    }
 })
-
-
-
 
 
 app.listen(3000, () =>{
     console.log('conectado na porta 3000 com sucesso')
 })
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
