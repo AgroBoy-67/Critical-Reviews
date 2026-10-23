@@ -15,9 +15,8 @@
         <nav class="nav">
             <a href="inicio.html" class="aDoNav">Inicio</a>
             <a href="avaliar.html" class="aDoNav">Avaliar</a>
-            <a href="admin.html" class="aDoNav">Admin</a>
         </nav>
-        <a href="perfil.html">
+        <a href="perfil.html" class="perfil-header">
             <div class="divFoto">
                 <img src="css/fotos/semFoto.png" alt="Sem foto" width="40px">
                 <p>Sem nome</p>
@@ -26,6 +25,31 @@
         <div class="divConfig">
             <a href="config.html" class="aDoNav"><img src="css/fotos/config.png" alt="Configurações" width="40px" class="engrenagem"></a>
         </div>
+    
     </header>
+    <main>
+        <div id="acesso">
+        <h1>Acesso Restrito</h1>
+        <p>Digite sua senha de Administrador</p>
+        </div>
+        <div id="form-adm">
+        <form id="form-ADM">
+            <div id="div-dentro">
+            <div class="input-box">
+                <label for="senha"><b style="font-size: 30px;">Senha:</b></label>
+                <input type="password" id="senha" placeholder="Digite sua senha">
+            </div>
+            <div class="input-box">
+                <label for="email"><b style="font-size: 30px;">Email:</b></label>
+                <input type="email" id="email" placeholder="Digite o seu email">
+            </div>
+            <div>   
+                <button type="submit">Entrar</button>
+            </div>
+            </div>
+        </form>
+        </div>
+    </main>
+    <script src="admin.js"></script>
 </body>
 </html>
