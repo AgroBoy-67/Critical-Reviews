@@ -26,7 +26,7 @@ async function autenticarAdm(){
     const senhaHash = await bcrypt.hash(senha, 10)
 
     const sql = `
-    INSERT INTO admin (senhaHash, email) VALUES (?,?)
+    INSERT INTO ADM (senhaHash, email) VALUES (?,?)
     `
     const resultado = await consultar(sql, [
         senhaHash.trim(),

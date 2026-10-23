@@ -14,7 +14,7 @@ gsap.to("#logo", {
     yoyo: true
 })
 
-gsap.to(".aDeNavegacao", {
+gsap.to(".aDoNav", {
     scale: 1.2,
     duration: 2.5,
     ease: "sine.inOut",
