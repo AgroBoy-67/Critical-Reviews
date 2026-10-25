@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,60 +31,74 @@
             <div class="header-avaliar">
                 <h1>Envie sua avaliação</h1>
             </div>
-            <form>
+            <form id="formEnviar">
                 <div class="body-avaliar">
                     <div class="avaliar-part1">
-                        <div>
-                            <button>Enviar foto</button>
-                        </div>
                         <div class="imagemPreview-avaliar">
-                            <input type="file" id="imagem" accept="image/*" style="display: none;">
-                            <label for="imagem" id="escolherImagem">Escolher imagem</label>
+                            <input type="file" id="imagem" accept="image/*" hidden>
+                            <label for="imagem" id="escolherImagem">Enviar foto</label>
+                            <p id="textoVazio">Nenhuma imagem selecionada</p>
+                            <img id="preview" src="" alt="Pré-visualização da imagem" style="display: none; max-width: 200px;">
                         </div>
                     </div>
                     <div class="avaliar-part2">
                         <div class="input-box">
-                            <label for="nome">Nome do item que quer avaliar: </label>
-                            <input type="text" name="nome-item" id="nome" placeholder="Nome do item...">
+                            <label for="nomeDaCoisa">Nome do item que quer avaliar:</label>
+                            <input type="text" name="nome-item" id="nomeDaCoisa" placeholder="Nome do item..." required>
                         </div>
                         <div class="input-box">
-                            <label for="categoria">Classifique seu item: </label>
-                            <select id="categoria-item">
-                                <option value="" selected disabled> - Selecione - </option>
+                            <label for="categoria">Classifique seu item:</label>
+                            <select id="categoria" required>
+                                <option value="" selected disabled>- Selecione -</option>
                                 <option value="pessoa">Uma pessoa</option>
                                 <option value="lugar">Um lugar</option>
                                 <option value="situacao">Uma situação</option>
                                 <option value="evento">Um evento</option>
                                 <option value="objeto">Um objeto</option>
-                                <option value="midia">Uma peça de mídia ou entreterimento</option>
+                                <option value="midia">Uma peça de mídia ou entretenimento</option>
                             </select>
                         </div>
                         <div class="input-box">
-                            <label for="descricao">Descreva sua avaliação: </label>
-                            <textarea name="descricao" id="descricao-item" rows="4" placeholder="Descreva o item..."></textarea>
+                            <label for="avaliacao">Descreva sua avaliação:</label>
+                            <textarea name="descricao" id="avaliacao" rows="4" placeholder="Descreva o item..." required></textarea>
                         </div>
                         <div>
                             <h2>Quantas estrelas o item merece?</h2>
                             <div class="estrelas-box">
                                 <div>
-                                    <button class="estrela" type="button" id="estrela1" onclick="escolhaEstrelas(1)"><img src="css/fotos/estrela vazia.png" id="estrelaVazia1"><img src="css/fotos/estrela cheia.png" style="display: none;" id="estrelaCheia1"></button>
+                                    <button class="estrela" type="button" onclick="escolhaEstrelas(1)">
+                                        <img src="css/fotos/estrela vazia.png" id="estrelaVazia1" alt="Estrela vazia">
+                                        <img src="css/fotos/estrela cheia.png" id="estrelaCheia1" alt="Estrela cheia" style="display: none;">
+                                    </button>
                                 </div>
                                 <div>
-                                    <button class="estrela" type="button" id="estrela2" onclick="escolhaEstrelas(2)"><img src="css/fotos/estrela vazia.png" id="estrelaVazia2"><img src="css/fotos/estrela cheia.png" style="display: none;" id="estrelaCheia2"></button>
+                                    <button class="estrela" type="button" onclick="escolhaEstrelas(2)">
+                                        <img src="css/fotos/estrela vazia.png" id="estrelaVazia2" alt="Estrela vazia">
+                                        <img src="css/fotos/estrela cheia.png" id="estrelaCheia2" alt="Estrela cheia" style="display: none;">
+                                    </button>
                                 </div>
                                 <div>
-                                    <button class="estrela" type="button" id="estrela3" onclick="escolhaEstrelas(3)"><img src="css/fotos/estrela vazia.png" id="estrelaVazia3"><img src="css/fotos/estrela cheia.png" style="display: none;" id="estrelaCheia3"></button>
+                                    <button class="estrela" type="button" onclick="escolhaEstrelas(3)">
+                                        <img src="css/fotos/estrela vazia.png" id="estrelaVazia3" alt="Estrela vazia">
+                                        <img src="css/fotos/estrela cheia.png" id="estrelaCheia3" alt="Estrela cheia" style="display: none;">
+                                    </button>
                                 </div>
                                 <div>
-                                    <button class="estrela" type="button" id="estrela4" onclick="escolhaEstrelas(4)"><img src="css/fotos/estrela vazia.png" id="estrelaVazia4"><img src="css/fotos/estrela cheia.png" style="display: none;" id="estrelaCheia4"></button>
+                                    <button class="estrela" type="button" onclick="escolhaEstrelas(4)">
+                                        <img src="css/fotos/estrela vazia.png" id="estrelaVazia4" alt="Estrela vazia">
+                                        <img src="css/fotos/estrela cheia.png" id="estrelaCheia4" alt="Estrela cheia" style="display: none;">
+                                    </button>
                                 </div>
                                 <div>
-                                    <button class="estrela" type="button" id="estrela5" onclick="escolhaEstrelas(5)"><img src="css/fotos/estrela vazia.png" id="estrelaVazia5"><img src="css/fotos/estrela cheia.png" style="display: none;" id="estrelaCheia5"></button>
+                                    <button class="estrela" type="button" onclick="escolhaEstrelas(5)">
+                                        <img src="css/fotos/estrela vazia.png" id="estrelaVazia5" alt="Estrela vazia">
+                                        <img src="css/fotos/estrela cheia.png" id="estrelaCheia5" alt="Estrela cheia" style="display: none;">
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <button class="enviar-avaliar">Enviar review</button>
+                            <button class="enviar-avaliar" type="submit">Enviar review</button>
                         </div>
                     </div>
                 </div>

@@ -1,112 +1,98 @@
-const FormLogin = document.getElementById('FormLogin');
-const FormCadastro = document.getElementById('FormCadastro')
+const FormLogin = document.getElementById('formLogin');
+const FormCadastro = document.getElementById('formCadas');
 
-if(FormLogin || FormCadastro){
-
-class Registro{
-    constructor( id, nome, email,senha){
-        this.id = id
-        this.senha = senha
-        this.email = email
-        this.nome = nome
+class Registro {
+    constructor(nome, email, senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
     }
 }
 
-class Login{
-    constructor(email, senha){
-        this.senha = senha
-        this.email = email
+class Login {
+    constructor(email, senha) {
+        this.email = email;
+        this.senha = senha;
     }
-
 }
 
-class Gerenciador{
-    constructor(){
-        this.proximoId = 1
-        this.usuarios = []
-    }
-
-verificarEmail(email) {
-    return this.usuarios.some(
-        usuario => usuario.email === email
-    )
-}
-
-    salvarUser(nome, emailC, senha){
-        const NewUser = new Registro( this.proximoId, nome, emailC, senha)
-        this.usuarios.push(NewUser)
-        this.proximoId++
-        return NewUser;
-    }
-
-        verificarEmailLogin(email, senha){
-        const login = new Login(email, senha);
-
-        const usuario = this.usuarios.find(
-            usuario => usuario.email === login.email
-        );
-        if (!usuario) {
-            alert("Usuário não encontrado");
-            return;
-        }
-        if (usuario.senha !== login.senha) {
-            alert("Senha incorreta.");    
-        return;
-        } 
-        alert("Login realizado!");
-    }
-
-}
-
-const NovoUser = new Gerenciador();
-
-const email = document.getElementById('EmailC');
-const nome = document.getElementById('Nome');
-const senha = document.getElementById('SenhaC');
-const senhaCC = document.getElementById('SenhaCC');
-
-const emailL = document.getElementById('Email');
-const senhaL = document.getElementById('Senha');
-
-
-if(FormCadastro){
-FormCadastro.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const emailC = email.value.trim();
-    const nomeC = nome.value.trim();
-    const senhaI = senha.value.trim();
-    const senhaC = senhaCC.value.trim();
-
-    if ( emailC === "" || nomeC === "" || senhaI === "" || senhaC === "") {
-        alert("Complete os campos vazios")
-        return;
-    }
-    if(senhaI !== senhaC){
-        alert("As senhas não são iguais.")
-        return
-    }
-
-    if(NovoUser.verificarEmail(emailC)){
-        alert('Esse email já existe.')
-    }
-
-    else{
-        NovoUser.salvarUser(nomeC, emailC, senhaI);
-        alert("Usuário cadastrado com sucesso.")
-        console.log(NovoUser.usuarios);
-        FormCadastro.reset()
-    }
-})}
-
-    if(FormLogin){
-    FormLogin.addEventListener("submit", function(e) {
+// Cadastro aqui:
+if (FormCadastro) {
+    FormCadastro.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = emailL.value.trim();
-        const senha = senhaL.value.trim();
-        if(email === "" || senha === "") {
-            alert("Complete os campos.")
+
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('emailC').value.trim().toLowerCase();
+        const senha = document.getElementById('senhaC').value;
+        const senha2 = document.getElementById('senhaC2').value;
+
+        if (senha != senha2) {
+            alert('As senhas não são iguais.');
             return;
         }
-        NovoUser.verificarEmailLogin(email, senha)
-    })}
+
+        const usuario = new Registro(nome, email, senha);
+
+        try {
+            const resposta = await fetch('/api/cadastro', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    nomeC: usuario.nome,
+                    emailC: usuario.email,
+                    senhaC: usuario.senha
+                })
+            });
+
+            const resultado = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(resultado.erro);
+            }
+
+            alert('conta criado com sucesso');
+            FormCadastro.reset();
+            window.location.href = 'inicio.html';
+
+        } catch (erro) {
+            console.log(erro.message)
+            alert(erro.message)
+        }
+    });
+}
+
+// Login aqui:
+if (FormLogin) {
+    FormLogin.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const senha = document.getElementById('senha').value;
+
+        const usuario = new Login(email, senha);
+
+        try {
+            const resposta = await fetch('/api/login',{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    emailL: usuario.email,
+                    senhaL: usuario.senha
+                })
+            });
+
+            const resultado = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(resultado.erro);
+            }
+
+            alert(`Bem vindo ${usuario.email}!`);
+            window.location.href = 'inicio.html';
+
+        } catch (erro) {
+            console.log(erro.message)
+            alert(erro.message);
+        }
+    });
 }

@@ -1,19 +1,23 @@
-const fotoForm = document.getElementById('fotoForm');
-const form = document.getElementById("formEnviar");
 
+const fotoForm = document.querySelector('.imagemPreview-avaliar');
+const formEnviar = document.getElementById("formEnviar");
+
+// PREVIEW DA IMAGEM
 if (fotoForm) {
-    fotoForm.addEventListener('change', function(e) {
-        document.getElementById("textoVazio").style.display = "none";
+    fotoForm.addEventListener('change', function (e) {
         const file = e.target.files[0];
+
         if (file) {
-            const preview = document.getElementById('preview');
+            document.getElementById("textoVazio").style.display = "none";
+
+            const preview = document.getElementById("preview");
             preview.src = URL.createObjectURL(file);
-            preview.style.display = 'block';
+            preview.style.display = "block";
         }
     });
 }
 
-
+// ESTRELAS
 const estrelasVazias = [
     document.getElementById("estrelaVazia1"),
     document.getElementById("estrelaVazia2"),
@@ -21,7 +25,7 @@ const estrelasVazias = [
     document.getElementById("estrelaVazia4"),
     document.getElementById("estrelaVazia5")
 ];
- 
+
 const estrelasCheias = [
     document.getElementById("estrelaCheia1"),
     document.getElementById("estrelaCheia2"),
@@ -29,37 +33,34 @@ const estrelasCheias = [
     document.getElementById("estrelaCheia4"),
     document.getElementById("estrelaCheia5")
 ];
- 
+
 let ras = 0;
- 
+
 function escolhaEstrelas(quantia) {
-    // se eu clicar na mesma quantidade que já está ativa, zera tudo//
     if (quantia === ras) {
         quantia = 0;
     }
- 
-    // Salva a nova quantidade na sua variável
+
     ras = quantia;
- 
-    // ele passa pelas 5 estrelas e decide o que fazer com cada uma
+
     for (let i = 0; i < 5; i++) {
-        if (i < quantia) {
-            // Se a posição atual for menor que a nota desejada, acende
-            estrelasVazias[i].style.display = 'none';
-            estrelasCheias[i].style.display = 'block';
-        } else {
-            // Se for maior ou igual, apaga (serve tanto para o restante quanto para quando voltar a nota)
-            estrelasVazias[i].style.display = 'block';
-            estrelasCheias[i].style.display = 'none';
+        if (estrelasVazias[i] && estrelasCheias[i]) {
+            if (i < ras) {
+                estrelasVazias[i].style.display = "none";
+                estrelasCheias[i].style.display = "block";
+            } else {
+                estrelasVazias[i].style.display = "block";
+                estrelasCheias[i].style.display = "none";
+            }
         }
     }
 }
- 
-// Inicializa visualmente todas para vazias e zera a variável
+
 escolhaEstrelas(0);
 
+// CLASSE DE AVALIAÇÃO
 class Avaliação {
-    constructor(categoria,nomeItem,descricao,estrelas) {
+    constructor(categoria, nomeItem, descricao, estrelas) {
         this.categoria = categoria;
         this.nomeItem = nomeItem;
         this.descricao = descricao;
@@ -69,29 +70,44 @@ class Avaliação {
 
 let avaliacoes = [];
 
-const formEnviar = document.getElementById("formEnviar")
+// ENVIAR A AVALIAÇÃO
 if (formEnviar) {
-formEnviar.addEventListener("submit", function(e) {
-    e.preventDefault();
+    formEnviar.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    const categoria = document.getElementById("categoria").value;
-    const nomeDaCoisa = document.getElementById("nomeDaCoisa").value;
-    const avaliacao = document.getElementById("avaliacao").value;
+        const categoria = document.getElementById("categoria").value;
+        const nomeDaCoisa = document.getElementById("nomeDaCoisa").value;
+        const avaliacao = document.getElementById("avaliacao").value;
 
-    if (estrelas == 0 || nomeDaCoisa.trim() == "" || avaliacao.trim() == "") {
-        alert("Preencha todas as informações...")
-        return;
-    }
+        if (
+            ras === 0 ||
+            nomeDaCoisa.trim() === "" ||
+            avaliacao.trim() === ""
+        ) {
+            alert("Preencha todas as informações e selecione as estrelas!");
+            return;
+        }
 
-    const novaAvaliacao = new Avaliação(categoria,nomeDaCoisa,avaliacao,estrelas)
+        const novaAvaliacao = new Avaliação(
+            categoria,
+            nomeDaCoisa.trim(),
+            avaliacao.trim(),
+            ras
+        );
 
-    avaliacoes.push(novaAvaliacao);
-    alert("Avaliação enviada!");
-    estrelas = 0;
-    formEnviar.reset();
-    document.getElementById("preview").src = "";
-    document.getElementById("preview").style.display = "none";
-    document.getElementById("textoVazio").style.display = "block";
-    console.log(novaAvaliacao)
-})
+        avaliacoes.push(novaAvaliacao);
+
+        console.log(novaAvaliacao);
+        alert("Avaliação enviada!");
+
+        formEnviar.reset();
+
+        ras = 0;
+        escolhaEstrelas(0);
+
+        const preview = document.getElementById("preview");
+        preview.src = "";
+        preview.style.display = "none";
+        document.getElementById("textoVazio").style.display = "block";
+    });
 }

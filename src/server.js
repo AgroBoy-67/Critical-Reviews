@@ -1,3 +1,4 @@
+//definindo as extensões baixados
 const express = require ('express')
 const mysql = require ('mysql2/promise')
 const bcrypt = require ('bcrypt')
@@ -48,7 +49,7 @@ async function consultar(sql, valores = []) {
     }
 }
 
-
+//Cadastro
 app.post('/api/cadastro', async (req, res ) =>{
     try{
         const {nomeC, emailC, senhaC} = req.body
@@ -64,7 +65,7 @@ app.post('/api/cadastro', async (req, res ) =>{
 
         const senhaHash = await bcrypt.hash(senhaC, 10)  
         const sql = ` 
-        INSERT INTO Usuario (nomeC, emailC, SenhaHash) 
+        INSERT INTO Usuario (nome, email, senhaHash) 
         VALUES (?,?,?)
         ` 
 
@@ -78,20 +79,24 @@ app.post('/api/cadastro', async (req, res ) =>{
             id: resultado.insertId
         })
     } catch(erro){
+
+        if (erro.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({erro: 'Esse e-mail já está cadastrado.'});
+        }
         return res.status(409).json({erro: 'erro de conexão'})
     }
 })
 
+//Login
 app.post('/api/login', async (req, res) =>{
 
     try{
-
     const {emailL, senhaL} = req.body
     if(!emailL || !senhaL){
         return res.status(400).json({erro: 'Preencha todos os campos'})
     }
 
-    const sql = `SELECT * from Uuario WHERE  email = ?`
+    const sql = `SELECT * from Usuario WHERE email = ?`
     const resultado = await consultar(sql, [
             emailL.trim().toLowerCase()
             ])
@@ -104,13 +109,52 @@ app.post('/api/login', async (req, res) =>{
 
         const senhaVerify = await bcrypt.compare(
             senhaL,
-            resultado[0].SenhaHash
+            resultado[0].senhaHash
         )
         if (!senhaVerify) {
             return res.status(401).json({erro: 'E-mail ou senha incorretos'})
         }
         login(res, resultado[0])
         return res.json({mensagem: 'Login realizado com sucesso!'})
+
+        } 
+        catch(erro) {
+        console.error(erro)
+        return res.status(500).json({
+            erro: 'Erro interno do servidor'
+        })
+    }
+})
+
+//ADM
+app.post('/api/admin', async (req, res) =>{
+
+    try{
+       const {email, senha} = req.body
+
+       if(!email || !senha){
+        return res.status(400).json({erro: 'Preencha todos os campos'})
+       }
+       const sql = `SELECT * FROM ADM WHERE email = ?`
+       const resultado = await consultar(sql, [
+        email.trim().toLowerCase()
+       ])
+       
+     if (resultado.length === 0) {
+            return res.status(401).json({
+                erro: 'E-mail ou senha incorretos'
+            })
+        }
+
+        const senhaVerify = await bcrypt.compare(
+            senha,
+            resultado[0].senhaHash
+        )
+        if (!senhaVerify) {
+            return res.status(401).json({erro: 'E-mail ou senha incorretos'})
+        }
+        admin(res, resultado[0])
+        return res.json({mensagem: 'Login de ADM realizado com sucesso!'})
 
         } 
         catch(erro) {

@@ -10,8 +10,8 @@ const dbConfig = {
     database: process.env.DB_NAME
 }
 
-let senha = 'rosquinhadopaidogustavo123';
-let email = 'miguelgustavojulianoluiz@gmail.com';
+let senha = 'JLGMadmin321Critial';
+let email = 'CriticalReviewADM@gmail.com';
 
 async function consultar (sql, valores = []) {
     const conexao = await mysql.createConnection(dbConfig);
