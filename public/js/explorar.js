@@ -1,13 +1,8 @@
-function mostrarErro(error) {
-    if (error.status === 401) {
-        location.href = "login.html"
-    } else {
-        alert(error.message)
+async function load() {
+    const resposta = await fetch("/api/logado");
+    if (!resposta.ok) {
+        location.href = "index.html";
     }
 }
- 
-async function load() {
-    await api("/api/logado")
-}
- 
-load().catch(mostrarErro);
+
+load();

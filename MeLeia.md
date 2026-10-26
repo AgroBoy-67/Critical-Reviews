@@ -18,7 +18,7 @@ DB_HOST=localhost
 DB_USER=root
 DB_PORT=3306
 DB_NAME=CriticalReviews
-JWT_SECRET= SE NN SOUBER COMO VER A SENHA DO JWT PEDE PRO CHAT OQ COLOCAR NO TERMINAL :/
+JWT_SECRET= comando mencionado na linha 23 :/
 
  - COMANDO JWT PRA COLOCAR NO TERMINAL:
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"

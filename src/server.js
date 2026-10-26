@@ -173,6 +173,19 @@ app.post('/api/admin', async (req, res) =>{
     }
 })
 
+//Verificar se a pessoa fez Login
+app.get("/api/logado", requerLogin, async (req, res) => {
+    try {
+        const Usuario = await buscarUsuarioID(req.idUsuario);
+        if (!Usuario) {
+            return res.status(401).json({ erro: "Usuário não encontrado." });
+        }
+        res.json({ Usuario });
+    } catch (erro) {
+        res.status(500).json({ erro: "Erro interno do servidor." });
+    }
+});
+
 //Consultas ADM
 async function consultar(sql, valores = []) {
     const conexao = await mysql.createConnection(dbConfig)
@@ -272,6 +285,32 @@ app.get("/api/contar", async (req,res) => {
     }
 })
 
+//funçoes fofos
+async function buscarUsuarioID(id) {
+    const resultado = await consultar(
+        "SELECT * FROM Usuario WHERE id = ?",
+        [id]
+    );
+    return resultado[0];
+}
+
+function requerLogin(req, res, next) {
+    const token = req.cookies.acess_token;
+
+    if (!token) {
+        return res.status(401).json({ erro: "Faça login." });
+    }
+    try {
+        const JwtVerificar = jwt.verify(token, process.env.JWT_SECRET);
+        req.idUsuario = Number(JwtVerificar.sub);
+        next();
+    } catch {
+        return res.status(401).json({ erro: "Faça login novamente." });
+    }
+}
+
+
+//Socorro, deixe isso por ultimooooo
 app.listen(3000, () =>{
     console.log('conectado na porta 3000 com sucesso')
 })
