@@ -6,3 +6,14 @@ async function load() {
 }
 
 load();
+
+const ButtonSair = document.getElementById("logoutButtonSair");
+ButtonSair.addEventListener("click", async () => {
+    try {
+        await fetch("/api/logout",{
+            method: "POST"
+        })
+    } finally {
+        location.href = "index.html"
+    }
+});

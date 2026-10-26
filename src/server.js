@@ -12,6 +12,8 @@ app.use(express.static('public'))
 app.use(cookieParser());
 app.use(helmet());
 
+const TEMPO_COOKIE = 15
+
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -23,13 +25,15 @@ const dbConfig = {
 const opcoesCookies = {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production"  
+    secure: process.env.NODE_ENV === "production",
+    maxAge: TEMPO_COOKIE * 60 * 1000
 }
 
 function login (res, usuario) {
     const token = jwt.sign(
         { sub: String(usuario.id)},
-        process.env.JWT_SECRET
+        process.env.JWT_SECRET,
+        { expiresIn: `${TEMPO_COOKIE}m`}
     )  
     res.cookie("acess_token", token, opcoesCookies)
 }
@@ -133,6 +137,11 @@ app.post('/api/login', async (req, res) =>{
         })
     }
 })
+
+app.post("/api/logout", (req, res) => {
+    res.clearCookie("acess_token", opcoesCookies);
+    res.json ({message: "Saiu da conta"})
+}) 
 
 //ADM
 app.post('/api/admin', async (req, res) =>{
