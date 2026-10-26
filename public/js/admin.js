@@ -18,7 +18,7 @@ form.addEventListener("submit", async (e) => {
     if (!resposta.ok) {
       throw new Error(resultado.erro);
     }
-    alert(resultado.message)
+    alert(resultado.mensagem)
     window.location.href = 'painelADM.html';
     form.reset();
     } catch (erro) {
@@ -26,16 +26,4 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-function mostrarErro(error) {
-    if (error.status === 401) {
-        location.href = "inicio.html"
-    } else {
-        alert(error.message)
-    }
-}
- 
-async function load() {
-    await api("/api/admin")
-}
- 
-load().catch(mostrarErro);
+

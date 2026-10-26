@@ -34,6 +34,14 @@ function login (res, usuario) {
     res.cookie("acess_token", token, opcoesCookies)
 }
 
+function admin (res, usuario) {
+    const token = jwt.sign(
+        { sub: String(usuario.id)},
+        process.env.JWT_SECRET
+    )  
+    res.cookie("acess_token", token, opcoesCookies)
+}
+
 
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
     throw new Error("Ausência do JWT segredo")
