@@ -10,7 +10,7 @@ const dbConfig = {
     database: process.env.DB_NAME
 }
 
-let senha = 'JLGMadmin321Critial';
+let senha = 'JLGMadmin321Critical';
 let email = 'CriticalReviewADM@gmail.com';
 
 async function consultar (sql, valores = []) {

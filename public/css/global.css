@@ -3,6 +3,11 @@
     src: url(fontes/starshines/Starshines.otf);
 }
 
+@font-face {
+    font-family: Titulos2;
+    src: url(fontes/singsong/Singsong.otf);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -102,3 +107,7 @@ body {
 /*
     -- | FIM DO HEADER
 */
+
+footer {
+    margin-bottom: 2.5%;
+}

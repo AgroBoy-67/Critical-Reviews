@@ -173,6 +173,104 @@ app.post('/api/admin', async (req, res) =>{
     }
 })
 
+//Consultas ADM
+async function consultar(sql, valores = []) {
+    const conexao = await mysql.createConnection(dbConfig)
+    try {
+        const [resultado] = await conexao.execute(sql, valores)
+        return resultado
+    }
+    finally {
+        await conexao.end()
+    }
+}
+
+app.get("/api/usuarios", async (req,res) => {
+    try {
+        const usuarios = await consultar(
+            "SELECT id,nome,email FROM Usuario"
+        )
+        res.json(usuarios)
+    }
+    catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao consultar o banco de dados."
+        })
+    }
+})
+
+
+app.get("/api/usuariosID", async (req,res) => {
+    try {
+        const usuarios = await consultar(
+            "SELECT id,nome,email FROM Usuario ORDER BY id"
+        )
+        res.json(usuarios)
+    }
+    catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao consultar o banco de dados."
+        })
+    }
+})
+
+
+app.get("/api/usuariosIDdesc", async (req,res) => {
+    try {
+        const usuarios = await consultar(
+            "SELECT id,nome,email FROM Usuario ORDER BY id DESC"
+        )
+        res.json(usuarios)
+    }
+    catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao consultar o banco de dados."
+        })
+    }
+})
+
+app.get("/api/usuariosAZ", async (req,res) => {
+    try {
+        const usuarios = await consultar(
+            "SELECT id,nome,email FROM Usuario ORDER BY nome"
+        )
+        res.json(usuarios)
+    }
+    catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao consultar o banco de dados."
+        })
+    }
+})
+
+app.get("/api/usuariosZA", async (req,res) => {
+    try {
+        const usuarios = await consultar(
+            "SELECT id,nome,email FROM Usuario ORDER BY nome DESC"
+        )
+        res.json(usuarios)
+    }
+    catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao consultar o banco de dados."
+        })
+    }
+})
+
+
+app.get("/api/contar", async (req,res) => {
+    try {
+        const usuarios = await consultar(
+            "SELECT COUNT(*) AS total FROM Usuario"
+        )
+        res.json(usuarios[0])
+    }
+    catch (erro) {
+        res.status(500).json({
+            erro: "Erro ao consultar o banco de dados."
+        })
+    }
+})
 
 app.listen(3000, () =>{
     console.log('conectado na porta 3000 com sucesso')

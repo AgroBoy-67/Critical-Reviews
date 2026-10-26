@@ -4,9 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PainelADM</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/paineldoadm.css">
 </head>
 <body>
-    <h1>Confio em vc Luiz :) decore bonitinho</h1>
-    <p>Good luck</p>
+    <header>
+        <h1>Olá administrador, veja as consultas dispooníveis abaixo.</h1>
+        <p>Mais opções serão adicionadas</p>
+    </header>
+    <main>
+        <section>
+            <div id="cadastrados">
+                <p>Total de cadastros:</p>
+
+            </div>
+        </section>
+        <section>
+            <form class="botoes-admin">
+                <div>
+                    <button data-consulta="todos" type="button">Todos os usuários</button>
+                </div>
+                <div>
+                    <button data-consulta="id" type="button">Usuários por ID</button>
+                </div>
+                <div>
+                    <button data-consulta="idDesc" type="button">Usuários por ID Decresc.</button>
+                </div>
+                <div>
+                    <button data-consulta="nome" type="button">Usuários por nome A - Z</button>
+                </div>
+                <div>
+                    <button data-consulta="nomeDesc" type="button">Usuários por nome Z - A</button>
+                </div>
+                <div>
+                    <button data-consulta="contar" type="button">Contar usuários</button>
+                </div>
+            </form>
+        </section>
+        <section>
+            <div id="exibirConsulta"></div>
+        </section>
+    </main>
+    <script src="js/paineladoadm.js"></script>
 </body>
 </html>
