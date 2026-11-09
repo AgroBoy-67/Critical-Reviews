@@ -18,7 +18,7 @@ if (fotoForm) {
 }
 
 // ESTRELAS
-const estrelasVazias = [
+const estrelasVazias = [    
     document.getElementById("estrelaVazia1"),
     document.getElementById("estrelaVazia2"),
     document.getElementById("estrelaVazia3"),
@@ -72,12 +72,14 @@ let avaliacoes = [];
 
 // ENVIAR A AVALIAÇÃO
 if (formEnviar) {
-    formEnviar.addEventListener("submit", function (e) {
+    formEnviar.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const categoria = document.getElementById("categoria").value;
         const nomeDaCoisa = document.getElementById("nomeDaCoisa").value;
         const avaliacao = document.getElementById("avaliacao").value;
+
+        const imagem = fotoForm.files[0];
 
         if (
             ras === 0 ||
@@ -95,6 +97,26 @@ if (formEnviar) {
             ras
         );
 
+        const dados = new FormData();
+        dados.append("categoria", categoria);
+        dados.append("nomeDaCoisa", nomeDaCoisa.trim());
+        dados.append("avaliacao", avaliacao.trim());
+        dados.append("estrelas", ras);
+        dados.append("imagem", imagem);
+
+        try {
+            const resposta = await fetch("/api/avaliacoes", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dados)
+            })
+
+            const resultado = await resposta.json();
+
+            if(!resposta.ok) {
+                throw new Error(resultado.erro)
+            }
+
         avaliacoes.push(novaAvaliacao);
 
         console.log(novaAvaliacao);
@@ -109,5 +131,8 @@ if (formEnviar) {
         preview.src = "";
         preview.style.display = "none";
         document.getElementById("textoVazio").style.display = "block";
-    });
+    } catch (erro) {
+
+    }; 
+})
 }
