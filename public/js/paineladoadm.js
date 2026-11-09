@@ -45,9 +45,13 @@ function criarLinha(resultado) {
     }
     else {
         for (const usuario of resultado) {
-            const p = document.createElement("p")
-            p.textContent = `ID: ${usuario.id} | Nome: ${usuario.nome} | Email: ${usuario.email}`
-            exibirConsulta.appendChild(p)
+            exibirConsulta.innerHTML = `
+                <div class="res-consulta">
+                    <p><b>ID:</b> ${usuario.id}</p>
+                    <p><b>Nome:</b> ${usuario.nome}</p>
+                    <p><b>Email:</b> ${usuario.email}</p>
+                </div>
+            `
         }
     }
 }

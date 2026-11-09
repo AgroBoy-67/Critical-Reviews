@@ -9,41 +9,40 @@
 </head>
 <body>
     <header>
-        <h1>Olá administrador, veja as consultas dispooníveis abaixo.</h1>
+        <h1>Olá administrador, veja as consultas disponíveis abaixo.</h1>
         <p>Mais opções serão adicionadas</p>
+        <button id="logoutButtonSairAdmin">Sair do painel</button>
     </header>
     <main>
         <section>
-            <button id="logoutButtonSairAdmin">Sair</button>
             <div id="cadastrados">
-                <p>Total de cadastros:</p>
+                <p>Total de usuários:</p>
+            </div>
+        </section>
+        <section class="consultas-adm">
+            <div>
+                <form class="botoes-admin">
 
+                        <button data-consulta="todos" type="button">Todos os usuários</button>
+
+                        <button data-consulta="id" type="button">Usuários por ID</button>
+
+                        <button data-consulta="idDesc" type="button">Usuários por ID Decresc.</button>
+
+                        <button data-consulta="nome" type="button">Usuários por nome A - Z</button>
+
+                        <button data-consulta="nomeDesc" type="button">Usuários por nome Z - A</button>
+
+                        <button data-consulta="contar" type="button">Contar usuários</button>
+
+                </form>
+            </div>
+            <div>
+                <div id="exibirConsulta"></div>
             </div>
         </section>
         <section>
-            <form class="botoes-admin">
-                <div>
-                    <button data-consulta="todos" type="button">Todos os usuários</button>
-                </div>
-                <div>
-                    <button data-consulta="id" type="button">Usuários por ID</button>
-                </div>
-                <div>
-                    <button data-consulta="idDesc" type="button">Usuários por ID Decresc.</button>
-                </div>
-                <div>
-                    <button data-consulta="nome" type="button">Usuários por nome A - Z</button>
-                </div>
-                <div>
-                    <button data-consulta="nomeDesc" type="button">Usuários por nome Z - A</button>
-                </div>
-                <div>
-                    <button data-consulta="contar" type="button">Contar usuários</button>
-                </div>
-            </form>
-        </section>
-        <section>
-            <div id="exibirConsulta"></div>
+            
         </section>
     </main>
     <script src="js/paineladoadm.js"></script>

@@ -13,28 +13,40 @@ header h1 {
     color: white;
     font-family: cursive;
     font-size: 25px;
-    margin: 3%;
+    margin: 1%;
 }
 
 .botoes-admin {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     place-items: center;
-    margin: 3%;
+    gap: 30px;
 }
 
 .botoes-admin button {
     background-color: rgb(0, 0, 30);
     color: white;
-    padding: 4%;
+    padding: 10px;
     border: none;
-    font-family: cursive;
-    width: fit-content;
+    width: 95%;
     height: fit-content;
     font-size: 13px;
     font-family: Titulos;
     text-wrap: nowrap;
     transition: 0.5s;
+}
+
+#logoutButtonSairAdmin {
+    margin-top: 10px;
+    font-size: 18px;
+    background-color: rgb(0, 0, 30);
+    color: white;
+    padding: 10px;
+    border: none;
+    height: fit-content;
+    font-family: Titulos;
+    text-wrap: nowrap;
+    border: white 2px solid;
 }
 
 .botoes-admin button:hover {
@@ -45,4 +57,22 @@ header h1 {
     color: white;
     font-family: cursive;
     margin: 50px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.consultas-adm {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.res-consulta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.res-consulta b {
+    color: rgb(255, 254, 211);
 }

@@ -35,7 +35,7 @@
     transition: 0.5s;
 }
 
-.perfil-p2 button {
+.perfil-p2 button, .sairConta button {
     background-color: rgb(0, 0, 20);
     color: white;
     padding: 1%;
@@ -48,7 +48,7 @@
     transition: 0.5s;
 }
 
-.perfil-p2 button:hover, .perfil-p1 button:hover {
+.perfil-p2 button:hover, .perfil-p1 button:hover, .sairConta button:hover {
     transform: scale(1.05);
     color: rgb(255, 254, 211);
 }
