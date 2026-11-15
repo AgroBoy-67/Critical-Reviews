@@ -25,3 +25,9 @@ form.addEventListener("submit", async (e) => {
         alert(erro.message);
     }
 });
+
+const grafico = document.getElementById("grafico")
+function carregarGraficos() {
+    grafico.src = "/api/graficos"
+}
+carregarGraficos();
