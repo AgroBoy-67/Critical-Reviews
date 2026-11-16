@@ -94,6 +94,7 @@ body {
     transition: 0.5s;
     width: fit-content;
     height: fit-content;
+    place-items: center;
 }
 
 .divFoto:hover {

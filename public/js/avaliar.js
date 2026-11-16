@@ -36,6 +36,8 @@ const estrelasCheias = [
 
 let ras = 0;
 
+
+
 function escolhaEstrelas(quantia) {
     if (quantia === ras) {
         quantia = 0;
@@ -60,79 +62,63 @@ escolhaEstrelas(0);
 
 // CLASSE DE AVALIAÇÃO
 class Avaliação {
-    constructor(categoria, nomeItem, descricao, estrelas) {
+    constructor(categoria, nomeItem, descricao, estrelas, imagemURL) {
         this.categoria = categoria;
         this.nomeItem = nomeItem;
         this.descricao = descricao;
         this.estrelas = estrelas;
+        this.imagemURL = imagemURL
     }
 }
 
-let avaliacoes = [];
 
-// ENVIAR A AVALIAÇÃO
+
+
+// ENVIAR A AVALIAÇÃOO
 if (formEnviar) {
     formEnviar.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const categoria = document.getElementById("categoria").value;
-        const nomeDaCoisa = document.getElementById("nomeDaCoisa").value;
-        const avaliacao = document.getElementById("avaliacao").value;
+        const nomeItem = document.getElementById("nomeDaCoisa").value;
+        const descricao = document.getElementById("avaliacao").value;
+        const imagemURL = fotoForm.files[0];
+        const avaliacaoTotal = new Avaliação(categoria,nomeItem,descricao,ras,imagemURL)
 
-        const imagem = fotoForm.files[0];
-
-        if (
-            ras === 0 ||
-            nomeDaCoisa.trim() === "" ||
-            avaliacao.trim() === ""
-        ) {
+        if (ras === 0 || nomeItem.trim() === "" || descricao.trim() === "") {
             alert("Preencha todas as informações e selecione as estrelas!");
-            return;
-        }
-
-        const novaAvaliacao = new Avaliação(
-            categoria,
-            nomeDaCoisa.trim(),
-            avaliacao.trim(),
-            ras
-        );
-
-        const dados = new FormData();
-        dados.append("categoria", categoria);
-        dados.append("nomeDaCoisa", nomeDaCoisa.trim());
-        dados.append("avaliacao", avaliacao.trim());
-        dados.append("estrelas", ras);
-        dados.append("imagem", imagem);
+            return; 
+        } 
 
         try {
             const resposta = await fetch("/api/avaliacoes", {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(dados)
+                body: JSON.stringify({
+                    categoria: avaliacaoTotal.categoria,
+                    nomeItem: avaliacaoTotal.nomeItem,
+                    descricao: avaliacaoTotal.descricao,
+                    estrelas: avaliacaoTotal.estrelas,
+                    imagemURL: avaliacaoTotal.imagemURL
+            })
             })
 
             const resultado = await resposta.json();
-
             if(!resposta.ok) {
                 throw new Error(resultado.erro)
             }
-
-        avaliacoes.push(novaAvaliacao);
-
-        console.log(novaAvaliacao);
+        console.log(avaliacaoTotal);
         alert("Avaliação enviada!");
-
         formEnviar.reset();
-
         ras = 0;
         escolhaEstrelas(0);
-
         const preview = document.getElementById("preview");
         preview.src = "";
         preview.style.display = "none";
         document.getElementById("textoVazio").style.display = "block";
     } catch (erro) {
-
+        console.log(erro)
+        alert(erro.message)
     }; 
 })
 }

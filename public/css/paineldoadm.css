@@ -76,3 +76,9 @@ header h1 {
 .res-consulta b {
     color: rgb(255, 254, 211);
 }
+
+ .graficosAdmin h2{
+    margin-left: 30px;
+    margin-top: 6px;
+    color: white;
+}
