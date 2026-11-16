@@ -199,6 +199,31 @@ app.post("/api/logout", (req, res) => {
     res.json ({message: "Saiu da conta"})
 }) 
 
+//chat bot
+app.post("/api/chat", async (req, res) => {
+    try{
+    const { mensagem } = req.body
+    if (mensagem.length > 1000) {
+        return res.status(400).json({erro: "Mensagem muito longa"})
+    }
+    if (typeof mensagem != "string") {
+        return res.status(400).json({erro: "Digite uma mensagem"})
+    }
+    const respostaPy = await fetch("http://127.0.0.1:5001/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        signal: AbortSignal.timeout(10000)
+    });
+    const resultado = await respostaPy.json();
+    if(!respostaPy) {
+        return res.status(respostaPy.status).json(resultado)
+    }
+    res.json(resultado)
+    } catch (erro) {
+        res.status(500).json({erro: "Erro de comunicação com o Python"})
+    }
+})
+
 //ADM
 app.post('/api/admin', async (req, res) =>{
 
@@ -347,6 +372,55 @@ app.get("/api/contar", async (req,res) => {
         res.status(500).json({
             erro: "Erro ao consultar o banco de dados."
         })
+    }
+})
+
+app.get("/api/graficos", requerLogin, async (req, res) => {
+    try {
+        const [Review] = await db.execute(`
+            SELECT nomeItem, categoria, estrelas FROM Review`)
+            const resposta = await fetch ("http://127.0.0.1:5001/graficos", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({Review})
+            })
+            if (!resposta.ok) {
+                throw new Error ("Não foi possível gerar os gráficos")
+            }
+            const imagem = Buffer.from(await resposta.arrayBuffer())
+            res.setHeader("Content-Type", "imagem/png")
+            res.setHeader("Content-Disposition", "inline; filename = graficos.png")
+            res.send(imagem)
+    } catch (erro) {
+        console.log(erro)
+        res.status(500).json({erro: "Erro de comunicação com o Python"})
+    }
+})
+ 
+app.get("/api/avaliacoes", requerLogin, async (req, res) => {
+    try {
+        const {nomeItem, categoria, estrleas} = req.body;
+        await db.execute(`
+            INSERT INTO Review nomeItem, categoria, estrelas) VALUES (?, ?, ?, ?)
+            `, [nomeItem, categoria, estrleas]);
+        const resposta = await fetch ("http://127.0.0.1:5001/avaliacoes", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                nome: nomeItem,
+                categoria: categoria,
+                nota: estrleas
+            })
+        })
+        const resultado = await resposta.json();
+ 
+        if (!resposta.ok) {
+            throw new Error("Não foi possível gerar os gráficos com o Python")
+        }
+        res.status(201).json(resultado);
+    } catch (erro) {
+        console.log(erro)
+        res.status(500).json({erro: "Erro de comunicação com o Python"})  
     }
 })
 
