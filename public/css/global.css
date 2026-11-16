@@ -32,11 +32,16 @@ textarea {
 
 .header {
     display: grid;
-    grid-template-columns: 1fr 3fr 2fr 0.5fr;
+    grid-template-columns: 0.5fr 3fr 2fr 0.5fr;
     padding: 0.01% 0.01% 0.01% 1%;
     background-color: rgb(0, 0, 20);
     color: white;
     padding:  0 0 2px 8px;
+    background-image: url("fotos/header.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
 }
 
 body {
@@ -46,8 +51,9 @@ body {
 .nav {
     display: flex;
     flex-direction: row;
-    place-items: center;
-    gap: 20%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
 }
 
 .aDoNav {
@@ -73,19 +79,21 @@ body {
 .perfil-header {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .divFoto {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    padding: 1%;
+    padding: 5px 10px 10px 5px;
     border-radius: 18px;
-    align-items: center;
     width: fit-content;
-    font-family: Titulos;
+    font-family: Titulos2;
     color: white;
     transition: 0.5s;
+    width: fit-content;
+    height: fit-content;
 }
 
 .divFoto:hover {
@@ -95,19 +103,78 @@ body {
 
 .divFoto img {
     border-radius: 50%;
+     width: 40px;
 }
 
 .divConfig {
     display: flex;
     place-items: center;
     justify-content: flex-end;
-    margin-right: 8%;
+    margin: 15px 20px 10px 10px;
+}
+
+#logoIMG, #avaliarIMG {
+    display: none;
+}
+
+#logoTXT, #avaliarTXT {
+    display: block;
 }
 
 /*
     -- | FIM DO HEADER
 */
 
+#video-fundo {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.conteudo {
+    position: relative;
+    z-index: 1;
+}
+
 footer {
     margin-bottom: 2.5%;
+}
+
+/*
+    Responsividade para celular
+*/
+
+@media (max-width: 768px) {
+
+    #logoIMG, #avaliarIMG {
+        display: block;
+        width: 50px;
+    }
+
+    #logoTXT, #avaliarTXT {
+        display: none;
+    }
+
+    .divLogo {
+        display: none;
+    }
+
+    .header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 2px 10px 2px 10px;
+    }
+
+    .divConfig {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .perfil-header {
+        display: none;
+    }
+
 }

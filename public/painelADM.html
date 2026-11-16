@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/paineldoadm.css">
 </head>
 <body>
+    <video autoplay muted loop playsinline id="video-fundo">
+        <source src="css/fotos/CR.mp4" type="video/mp4">
+    </video>
     <header>
         <h1>Olá administrador, veja as consultas disponíveis abaixo.</h1>
         <p>Mais opções serão adicionadas</p>
@@ -41,8 +44,11 @@
                 <div id="exibirConsulta"></div>
             </div>
         </section>
-        <section>
-            
+                <section class="graficosAdmin">
+            <h2>Gráficos de Registro e Controle</h2>
+            <div id="graficoCSS">
+                <img id="grafico">
+            </div>
         </section>
     </main>
     <script src="js/paineladoadm.js"></script>

@@ -30,7 +30,49 @@
     font-size: 38px;
 }
 
+.config-box img {
+    width: 200px;
+}
+
 .config-box p {
     font-family: cursive;
     font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .sec-boxes {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 25px;
+    }
+
+    .config-box {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        gap: 10px;
+        background-color: rgb(8, 0, 46);
+        color: white;
+        padding: 10px;
+        border: white 3px solid;
+        margin-top: 5%;
+        align-items: center;
+        transition: 0.2s;
+    }
+
+    .config-box h2 {
+        font-family: Titulos;
+        font-size: 19px;
+    }
+
+    .config-box img {
+        width: 150px;
+    }
+
+    .config-box p {
+        font-family: cursive;
+        font-size: 15px;
+    }
+
 }

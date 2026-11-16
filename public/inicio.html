@@ -8,17 +8,26 @@
     <link rel="stylesheet" href="css/inicio.css">
 </head>
 <body>
+    <video autoplay muted loop playsinline id="video-fundo">
+        <source src="css/fotos/CR.mp4" type="video/mp4">
+    </video>
     <header class="header">
-        <div>
+        <div class="divLogo">
             <a href="inicio.html"><img src="css/fotos/logo.png" alt="Logo" width="65px" class="logo"></a>
         </div>
         <nav class="nav">
-            <a href="inicio.html" class="aDoNav">Inicio</a>
-            <a href="avaliar.html" class="aDoNav">Avaliar</a>
+            <div>
+                <a href="inicio.html" class="aDoNav" id="logoTXT">Inicio</a>
+                <a href="inicio.html"><img src="css/fotos/inicio.png" width="65px" id="logoIMG"></a>
+            </div>
+            <div>
+                <a href="avaliar.html" class="aDoNav" id="avaliarTXT">Avaliar</a>
+                <a href="avaliar.html"><img src="css/fotos/avaliar.png" width="65px" id="avaliarIMG"></a>
+            </div>
         </nav>
         <a href="perfil.html" class="perfil-header">
             <div class="divFoto">
-                <img src="css/fotos/semFoto.png" alt="Sem foto" width="40px">
+                <img src="css/fotos/semFoto.png" alt="Sem foto">
                 <p>Sem nome</p>
             </div>
         </a>
@@ -26,6 +35,9 @@
             <a href="config.html" class="aDoNav"><img src="css/fotos/config.png" alt="Configurações" width="40px" class="engrenagem"></a>
         </div>
     </header>
+    <main class="main">
+
+    </main>
     <script src="js/explorar.js"></script>
 </body>
 </html>

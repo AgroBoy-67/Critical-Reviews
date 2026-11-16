@@ -27,7 +27,8 @@ form {
 }
 
 #form-adm {
-    border: 5px white solid;
+    border: 5px black solid;
+    background:linear-gradient(to right, rgb(1, 1, 48), rgb(8, 8, 68), rgb(0, 0, 47), rgb(1, 1, 33));
     border-radius: 7%;
     width: 20vw;
     height: 35vh;
@@ -79,4 +80,41 @@ button:hover{
     border: 2px black solid;
     margin-bottom: 20px;
     border: 2px white solid;
+}
+
+@media (max-width: 768px) {
+
+    #acesso {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    #form-adm {
+        border: 5px black solid;
+        background:linear-gradient(to right, rgb(1, 1, 48), rgb(8, 8, 68), rgb(0, 0, 47), rgb(1, 1, 33));
+        border-radius: 15px;
+        width: 200px;
+        height: 260px;
+        margin: auto;
+        padding: 35px;
+        display: flex;
+        place-items: center
+    }
+
+    #acesso h1{
+        font-size: 22px;
+    }
+
+    .input-box input {
+        font-size: 16px;
+        color: white;
+        background-color: #0e0e68;
+        width: 90%;
+        height: auto;
+        padding: 10px;
+        border-radius: 7px;
+        border: 2px black solid;
+        margin-bottom: 20px;
+        border: 2px white solid;
+    }
 }
