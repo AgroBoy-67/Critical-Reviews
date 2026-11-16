@@ -138,6 +138,62 @@ app.post('/api/login', async (req, res) =>{
     }
 })
 
+
+//AvaliaçãoEnvio
+app.post('/api/avaliacoes', async (req, res ) =>{
+    try{  
+        const token = req.cookies.acess_token
+        if (!token) {
+            return res.status(401).json({
+                erro: 'Faça login primeiro'
+            })}
+        const dadosToken = jwt.verify(token, process.env.JWT_SECRET)
+        const idUsuario = dadosToken.sub
+        const {categoria, nomeItem, descricao, estrelas, imagemURL} = req.body
+        let upvotes = 0
+        let downvotes = 0
+        if(!categoria || !nomeItem || !descricao || estrelas === 0 || !imagemURL){
+            return res.status(400).json({erro: 'Preencha todos os campos'})
+        }
+        if(estrelas > 5 || estrelas < 1){
+             return res.status(400).json({erro: 'A avaliação máxima deve ser de 5 estrelas ou ser de no mínimo 1 estrela'})
+        }
+        if(descricao.trim().length > 200){
+            return res.status(400).json({erro: 'Máximo de 200 caracteres já preechidos para a descrição'})
+        }
+
+        if(nomeItem.trim().length > 20){
+            return res.status(400).json({erro: 'Máximo de 20 caracteres já preechidos para o nome do item'})
+        }
+
+        const sql = ` 
+        INSERT INTO Review (idUsuario ,nomeItem, categoria, descricao, estrelas, fotoURL, upvotes, downvotes) 
+        VALUES (?,?,?,?,?,?,?,?)` 
+
+        const resultado = await consultar(sql, [
+            idUsuario,
+            nomeItem.trim(),
+            categoria,
+            descricao.trim(),
+            fotoURL,
+            Number(estrelas),
+            Number(upvotes),
+            Number(downvotes)
+
+            ])
+        res.json({
+            mensagem: 'Cadastro Realizado!',
+            id: resultado.insertId
+        })
+    } catch(erro){
+
+        if (erro.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({erro: 'Esse e-mail já está cadastrado.'});
+        }
+        return res.status(409).json({erro: 'erro de conexão'})
+    }
+})
+
 app.post("/api/logout", (req, res) => {
     res.clearCookie("acess_token", opcoesCookies);
     res.json ({message: "Saiu da conta"})
