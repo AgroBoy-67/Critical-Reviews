@@ -232,7 +232,10 @@ app.post('/api/avaliacoes', upload.single('imagem'), async (req, res) => {
 // BUSCAR AVALIAÇÕES
 app.get("/api/avaliacoes", async (req, res) => {
     try {
-        const avaliacoes = await consultar(`SELECT * FROM Review`);
+        const avaliacoes = await consultar(`
+            SELECT Review.id, Review.nomeItem, Review.categoria, Review.descricao, Review.estrelas,
+            Review.fotoURL, Review.upvotes, Review.downvotes, Usuario.nome AS nomeUsuario
+            FROM Review INNER JOIN Usuario ON Review.idUsuario = Usuario.id ORDER BY Review.id DESC`);
         res.json(avaliacoes);
     } catch (erro) {
         console.error(erro);

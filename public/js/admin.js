@@ -1,3 +1,11 @@
+async function load() {
+    const resposta = await fetch("/api/logado");
+    if (!resposta.ok) {
+        location.href = "index.html";
+    }
+}
+load();
+
 const form = document.getElementById("form-ADM");
 
 form.addEventListener("submit", async (e) => {
@@ -31,14 +39,3 @@ function carregarGraficos() {
     grafico.src = "/api/graficos"
 }
 carregarGraficos();
-
-const ButtonSair = document.getElementById("logoutButtonSair");
-ButtonSair.addEventListener("click", async () => {
-    try {
-        await fetch("/api/logout",{
-            method: "POST"
-        })
-    } finally {
-        location.href = "index.html"
-    }
-});

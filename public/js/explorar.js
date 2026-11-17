@@ -9,7 +9,7 @@ load();
 //avaliações
 async function carregarAvaliacoes() {
 
-    const BaseAvaliacoes = document.getElementById("avaliacoes");
+    const BaseAvaliacoes = document.getElementById("Mostrareviews");
 
     try {
         const resposta = await fetch("/api/avaliacoes");
@@ -24,21 +24,55 @@ async function carregarAvaliacoes() {
             return;
         }
 
-        BaseAvaliacoes.innerHTML += avaliacoes.map(avaliacao => `
-            <div class="card-avaliacao">
-                <h2>${avaliacao.nomeItem}</h2>
-                <p>Publicado por: ${avaliacao.nomeUsuario}</p>
-                <p>Categoria: ${avaliacao.categoria}</p>
-                <p>${avaliacao.estrelas}</p>
-                <img src="${avaliacao.fotoURL}" alt="Imagem da avaliação">
 
+BaseAvaliacoes.innerHTML = avaliacoes.map(avaliacao => `
+    <div class="card-avaliacao">
+        <div class="card-imagem">
+            <img src="${avaliacao.fotoURL}" 
+                 alt="Imagem de ${avaliacao.nomeItem}">
+        </div>
+        <div class="card-conteudo">
+            <div class="card-topo">
+                <span class="categoria-review">
+                    ${avaliacao.categoria}
+                </span>
+                <span class="nota-review">
+                    ★ ${avaliacao.estrelas}/5
+                </span>
             </div>
-        `)
+            <h2>${avaliacao.nomeItem}</h2>
+            <p class="descricao-review">
+                ${avaliacao.descricao}
+            </p>
+            <div class="card-rodape">
+                <span class="autor-review">
+                    Publicado por ${avaliacao.nomeUsuario}
+                </span>
+                <div class="votos-review">
+                    <span>▲ ${avaliacao.upvotes}</span>
+                    <span>▼ ${avaliacao.downvotes}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+`).join("");
 
     } catch (erro) {
         console.error(erro);
         BaseAvaliacoes.innerHTML = "<p>Erro ao carregar avaliações.</p>";
     }
 }
-
 carregarAvaliacoes();
+
+
+const ButtonSair = document.getElementById("logoutButtonSair");
+ButtonSair.addEventListener("click", async () => {
+    try {
+        await fetch("/api/logout",{
+            method: "POST"
+        })
+    } finally {
+        location.href = "index.html"
+    }
+});
