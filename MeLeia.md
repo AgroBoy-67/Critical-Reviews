@@ -25,6 +25,14 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 E VC PROVAVELMENTE TERÁ QUE FAZER OS DOWLOAD DO NPM JÁ Q O GIT NÃO GOSTA MT DO NODE_MODULES  
  - COMANDO PRO DOWNLOAD:
-npm install express mysql2 bcrypt cookie-parser helmet jsonwebtoken dotenv
+npm install express mysql2 bcrypt cookie-parser helmet jsonwebtoken dotenv multer cloudinary
+
+pip install Flask python-dotenv matplotlib pandas scikit-learn
+
+- INFOS DA CLOUDNARY PARA O .ENV
+
+CLOUDINARY_CLOUD_NAME= Root
+CLOUDINARY_API_KEY=785281332986475
+CLOUDINARY_API_SECRET= D-eVqrlogQyyOEfYDYQ-9FGQUIg
 
 FIM DOS AVISOS DO GUSTAVO

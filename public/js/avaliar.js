@@ -1,5 +1,5 @@
 
-const fotoForm = document.querySelector('.imagemPreview-avaliar');
+const fotoForm = document.getElementById('imagem')
 const formEnviar = document.getElementById("formEnviar");
 
 // PREVIEW DA IMAGEM
@@ -60,19 +60,7 @@ function escolhaEstrelas(quantia) {
 
 escolhaEstrelas(0);
 
-// CLASSE DE AVALIAÇÃO
-class Avaliação {
-    constructor(categoria, nomeItem, descricao, estrelas, imagemURL) {
-        this.categoria = categoria;
-        this.nomeItem = nomeItem;
-        this.descricao = descricao;
-        this.estrelas = estrelas;
-        this.imagemURL = imagemURL
-    }
-}
-
-
-
+const buttonEnviar = document.querySelector(".enviar-avaliar")
 
 // ENVIAR A AVALIAÇÃOO
 if (formEnviar) {
@@ -82,32 +70,35 @@ if (formEnviar) {
         const categoria = document.getElementById("categoria").value;
         const nomeItem = document.getElementById("nomeDaCoisa").value;
         const descricao = document.getElementById("avaliacao").value;
-        const imagemURL = fotoForm.files[0];
-        const avaliacaoTotal = new Avaliação(categoria,nomeItem,descricao,ras,imagemURL)
 
         if (ras === 0 || nomeItem.trim() === "" || descricao.trim() === "") {
             alert("Preencha todas as informações e selecione as estrelas!");
             return; 
         } 
+        if (!fotoForm.files[0]) {
+            alert("Envie uma imagem!");
+            return;
+        }
 
         try {
+            const dados = new FormData();
+
+            dados.append("categoria", categoria)
+            dados.append("nomeItem", nomeItem)
+            dados.append("descricao", descricao)
+            dados.append("estrelas", ras)
+            dados.append("imagem", fotoForm.files[0])
+
             const resposta = await fetch("/api/avaliacoes", {
                 method: "POST",
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    categoria: avaliacaoTotal.categoria,
-                    nomeItem: avaliacaoTotal.nomeItem,
-                    descricao: avaliacaoTotal.descricao,
-                    estrelas: avaliacaoTotal.estrelas,
-                    imagemURL: avaliacaoTotal.imagemURL
-            })
-            })
+                body: dados
+            });
 
             const resultado = await resposta.json();
             if(!resposta.ok) {
                 throw new Error(resultado.erro)
             }
-        console.log(avaliacaoTotal);
+        console.log(dados);
         alert("Avaliação enviada!");
         formEnviar.reset();
         ras = 0;

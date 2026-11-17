@@ -3,14 +3,18 @@ const express = require ('express')
 const mysql = require ('mysql2/promise')
 const bcrypt = require ('bcrypt')
 const  cookieParser = require ("cookie-parser")
-const helmet = require ("helmet");
+const helmet = require ("helmet")
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const multer = require("multer")
+const { v2: cloudinary } = require('cloudinary')
 const app = express()
 app.use(express.json())
 app.use(express.static('public'))
 app.use(cookieParser());
 app.use(helmet());
+
+const upload = multer({storage: multer.memoryStorage()});
 
 const TEMPO_COOKIE = 15
 
@@ -21,6 +25,12 @@ const dbConfig = {
     password: '',
     database: process.env.DB_NAME
 }
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const opcoesCookies = {
     httpOnly: true,
@@ -36,6 +46,22 @@ function login (res, usuario) {
         { expiresIn: `${TEMPO_COOKIE}m`}
     )  
     res.cookie("acess_token", token, opcoesCookies)
+}
+
+async function enviarCloudinary(arquivo) {
+    return new Promise((resolve, reject) => {
+
+        const stream = cloudinary.uploader.upload_stream(
+            {folder: 'avaliacoes'},
+            (erro, resultado) => {
+                if (erro) {
+                    return reject(erro);
+                }
+                resolve(resultado);
+            }
+        );
+        stream.end(arquivo.buffer);
+    });
 }
 
 function admin (res, usuario) {
@@ -140,22 +166,26 @@ app.post('/api/login', async (req, res) =>{
 
 
 //AvaliaçãoEnvio
-app.post('/api/avaliacoes', async (req, res ) =>{
+app.post('/api/avaliacoes', upload.single('imagem'), async (req, res) => {
     try{  
         const token = req.cookies.acess_token
         if (!token) {
             return res.status(401).json({
                 erro: 'Faça login primeiro'
             })}
+
+        if (!req.file) {
+            return res.status(400).json({
+                erro: 'Envie uma imagem'
+        })}
+
         const dadosToken = jwt.verify(token, process.env.JWT_SECRET)
         const idUsuario = dadosToken.sub
-        const {categoria, nomeItem, descricao, estrelas, imagemURL} = req.body
-        let upvotes = 0
-        let downvotes = 0
-        if(!categoria || !nomeItem || !descricao || estrelas === 0 || !imagemURL){
+        const {categoria, nomeItem, descricao, estrelas} = req.body
+        if(!categoria || !nomeItem || !descricao || Number(estrelas) === 0){
             return res.status(400).json({erro: 'Preencha todos os campos'})
         }
-        if(estrelas > 5 || estrelas < 1){
+        if(Number(estrelas) > 5 || Number(estrelas) < 1){
              return res.status(400).json({erro: 'A avaliação máxima deve ser de 5 estrelas ou ser de no mínimo 1 estrela'})
         }
         if(descricao.trim().length > 200){
@@ -166,6 +196,13 @@ app.post('/api/avaliacoes', async (req, res ) =>{
             return res.status(400).json({erro: 'Máximo de 20 caracteres já preechidos para o nome do item'})
         }
 
+
+        const resultadoCloudinary = await enviarCloudinary(req.file);
+        const fotoURL = resultadoCloudinary.secure_url;
+        let upvotes = 0
+        let downvotes = 0
+
+
         const sql = ` 
         INSERT INTO Review (idUsuario ,nomeItem, categoria, descricao, estrelas, fotoURL, upvotes, downvotes) 
         VALUES (?,?,?,?,?,?,?,?)` 
@@ -175,8 +212,8 @@ app.post('/api/avaliacoes', async (req, res ) =>{
             nomeItem.trim(),
             categoria,
             descricao.trim(),
-            fotoURL,
             Number(estrelas),
+            fotoURL,
             Number(upvotes),
             Number(downvotes)
 
@@ -185,13 +222,10 @@ app.post('/api/avaliacoes', async (req, res ) =>{
             mensagem: 'Cadastro Realizado!',
             id: resultado.insertId
         })
-    } catch(erro){
-
-        if (erro.code === 'ER_DUP_ENTRY') {
-            return res.status(409).json({erro: 'Esse e-mail já está cadastrado.'});
+        } catch(erro) {
+            console.error(erro)
+            return res.status(500).json({erro: 'Erro ao salvar avaliação'})
         }
-        return res.status(409).json({erro: 'erro de conexão'})
-    }
 })
 
 app.post("/api/logout", (req, res) => {
@@ -200,6 +234,7 @@ app.post("/api/logout", (req, res) => {
 }) 
 
 //chat bot
+//ignorar por enquanto
 app.post("/api/chat", async (req, res) => {
     try{
     const { mensagem } = req.body
@@ -277,17 +312,6 @@ app.get("/api/logado", requerLogin, async (req, res) => {
 });
 
 //Consultas ADM
-async function consultar(sql, valores = []) {
-    const conexao = await mysql.createConnection(dbConfig)
-    try {
-        const [resultado] = await conexao.execute(sql, valores)
-        return resultado
-    }
-    finally {
-        await conexao.end()
-    }
-}
-
 app.get("/api/usuarios", async (req,res) => {
     try {
         const usuarios = await consultar(
@@ -375,6 +399,7 @@ app.get("/api/contar", async (req,res) => {
     }
 })
 
+//ignorar
 app.get("/api/graficos", requerLogin, async (req, res) => {
     try {
         const [Review] = await db.execute(`
@@ -388,7 +413,7 @@ app.get("/api/graficos", requerLogin, async (req, res) => {
                 throw new Error ("Não foi possível gerar os gráficos")
             }
             const imagem = Buffer.from(await resposta.arrayBuffer())
-            res.setHeader("Content-Type", "imagem/png")
+            res.setHeader("Content-Type", "image/png")
             res.setHeader("Content-Disposition", "inline; filename = graficos.png")
             res.send(imagem)
     } catch (erro) {
@@ -396,8 +421,8 @@ app.get("/api/graficos", requerLogin, async (req, res) => {
         res.status(500).json({erro: "Erro de comunicação com o Python"})
     }
 })
- 
-app.get("/api/avaliacoes", requerLogin, async (req, res) => {
+ //ignorar por enqaunto
+app.get("/api/testeuwu", requerLogin, async (req, res) => {
     try {
         const {nomeItem, categoria, estrleas} = req.body;
         await db.execute(`
