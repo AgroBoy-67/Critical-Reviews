@@ -32,6 +32,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+
 const opcoesCookies = {
     httpOnly: true,
     sameSite: "lax",
@@ -228,6 +229,18 @@ app.post('/api/avaliacoes', upload.single('imagem'), async (req, res) => {
         }
 })
 
+// BUSCAR AVALIAÇÕES
+app.get("/api/avaliacoes", async (req, res) => {
+    try {
+        const avaliacoes = await consultar(`SELECT * FROM Review`);
+        res.json(avaliacoes);
+    } catch (erro) {
+        console.error(erro);
+        res.status(500).json({
+            erro: "Erro ao buscar avaliações"
+        });
+    }
+});
 app.post("/api/logout", (req, res) => {
     res.clearCookie("acess_token", opcoesCookies);
     res.json ({message: "Saiu da conta"})
@@ -399,7 +412,7 @@ app.get("/api/contar", async (req,res) => {
     }
 })
 
-//ignorar
+
 app.get("/api/graficos", requerLogin, async (req, res) => {
     try {
         const [Review] = await db.execute(`
@@ -419,33 +432,6 @@ app.get("/api/graficos", requerLogin, async (req, res) => {
     } catch (erro) {
         console.log(erro)
         res.status(500).json({erro: "Erro de comunicação com o Python"})
-    }
-})
- //ignorar por enqaunto
-app.get("/api/testeuwu", requerLogin, async (req, res) => {
-    try {
-        const {nomeItem, categoria, estrleas} = req.body;
-        await db.execute(`
-            INSERT INTO Review nomeItem, categoria, estrelas) VALUES (?, ?, ?, ?)
-            `, [nomeItem, categoria, estrleas]);
-        const resposta = await fetch ("http://127.0.0.1:5001/avaliacoes", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                nome: nomeItem,
-                categoria: categoria,
-                nota: estrleas
-            })
-        })
-        const resultado = await resposta.json();
- 
-        if (!resposta.ok) {
-            throw new Error("Não foi possível gerar os gráficos com o Python")
-        }
-        res.status(201).json(resultado);
-    } catch (erro) {
-        console.log(erro)
-        res.status(500).json({erro: "Erro de comunicação com o Python"})  
     }
 })
 
