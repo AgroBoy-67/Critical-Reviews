@@ -249,33 +249,34 @@ app.get("/api/avaliacoes", async (req, res) => {
 app.post("/api/logout", (req, res) => {
     res.clearCookie("acess_token", opcoesCookies);
     res.json ({message: "Saiu da conta"})
-}) 
+})  
 
 //chat bot
-//ignorar por enquanto
 app.post("/api/chat", async (req, res) => {
-    try{
-    const { mensagem } = req.body
-    if (mensagem.length > 1000) {
-        return res.status(400).json({erro: "Mensagem muito longa"})
-    }
-    if (typeof mensagem != "string") {
-        return res.status(400).json({erro: "Digite uma mensagem"})
-    }
-    const respostaPy = await fetch("http://127.0.0.1:5001/chat", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        signal: AbortSignal.timeout(10000)
-    });
-    const resultado = await respostaPy.json();
-    if(!respostaPy) {
-        return res.status(respostaPy.status).json(resultado)
-    }
-    res.json(resultado)
+    try {
+        const { mensagem } = req.body;
+        
+        if (mensagem.length > 666) {
+            return res.status(400).json({ erro: "Mensagem muito longa" });
+        }
+        const respostaPy = await fetch("http://127.0.0.1:5001/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mensagem }),
+            signal: AbortSignal.timeout(10000)
+        });
+        const resultado = await respostaPy.json();
+        if (!respostaPy.ok) {
+            return res.status(respostaPy.status).json(resultado);
+        }
+        res.json(resultado);
     } catch (erro) {
-        res.status(500).json({erro: "Erro de comunicação com o Python"})
+        console.log(erro);
+        res.status(500).json({
+            erro: "Erro de comunicação com o Python"
+        });
     }
-})
+});
 
 //ADM
 app.post('/api/admin', async (req, res) =>{
