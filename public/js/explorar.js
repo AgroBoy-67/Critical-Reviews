@@ -9,7 +9,7 @@ load();
 //avaliações
 async function carregarAvaliacoes() {
 
-    const BaseAvaliacoes = document.getElementById("Mostrareviews");
+    const BaseAvaliacoes = document.getElementById("avaliacoes");
 
     try {
         const resposta = await fetch("/api/avaliacoes");
@@ -41,9 +41,6 @@ BaseAvaliacoes.innerHTML = avaliacoes.map(avaliacao => `
                 </span>
             </div>
             <h2>${avaliacao.nomeItem}</h2>
-            <p class="descricao-review">
-                ${avaliacao.descricao}
-            </p>
             <div class="card-rodape">
                 <span class="autor-review">
                     Publicado por ${avaliacao.nomeUsuario}
@@ -64,15 +61,3 @@ BaseAvaliacoes.innerHTML = avaliacoes.map(avaliacao => `
     }
 }
 carregarAvaliacoes();
-
-
-const ButtonSair = document.getElementById("logoutButtonSair");
-ButtonSair.addEventListener("click", async () => {
-    try {
-        await fetch("/api/logout",{
-            method: "POST"
-        })
-    } finally {
-        location.href = "index.html"
-    }
-});

@@ -28,7 +28,7 @@
         <a href="perfil.html" class="perfil-header">
             <div class="divFoto">
                 <img src="css/fotos/semFoto.png" alt="Sem foto">
-                <p>Sem nome</p>
+                <p id="nomehead">Sem nome</p>
             </div>
         </a>
         <div class="divConfig">
@@ -36,7 +36,7 @@
         </div>
     </header>
     <main class="main-perfil">
-        <form class="sec-perfil1">
+        <div class="sec-perfil1">
             <div class="perfil-p1">
                 <div>
                     <img src="css/fotos/semFoto.png" alt="Sem foto" width="300px">
@@ -47,21 +47,22 @@
             </div>
             <div class="perfil-p2">
                 <div>
-                    <p>Sem nome</p>
+                    <p id="nomeAlterar">Carregando...</p>
                 </div>
                 <br>
                 <div>
-                    <form class="mudar-nome">
-                        <input type="text">
-                        <button>Mudar nome</button>
+                    <form class="mudar-nome" id="mudar-nome">
+                        <input type="text" class="novoNome" placeholder="Digite o novo nome">
+                        <button type="submit">Mudar nome</button>
                     </form>
                 </div>
             </div>  
-        </form>
+        </div>
         <div class="sairConta">
             <button id="logoutButtonSair">Sair da conta</button>
         </div>
     </main>
-    <script src="js/explorar.js"></script>
+    <script src="js/perfil.js"></script>
+    <script src="js/global.js"></script>
 </body>
 </html>

@@ -1,149 +1,52 @@
-
-/* ÁREA PRINCIPAL */
-
-.main {
-    width: 100%;
-    padding: 30px 20px;
-}
-
 #Mostrareviews {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
+    padding: 20px;
 }
-
-/* GRADE DE REVIEWS */
 
 #avaliacoes {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 230px);
-    justify-content: center;
-    align-items: start;
-    gap: 18px;
-
-    width: 100%;
-    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 }
-
-/* CARD */
 
 .card-avaliacao {
-    width: 230px;
-    background: #0d1b2a;
-    border: 1px solid #29415c;
-    border-radius: 7px;
-    overflow: hidden;
-    color: #e5edf5;
-
-    transition: 0.2s ease;
+    width: 220px;
+    background: #09366d;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
 }
-
-.card-avaliacao:hover {
-    transform: translateY(-4px);
-    border-color: #65a9df;
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* IMAGEM INTEIRA */
 
 .card-imagem {
-    width: 100%;
-    height: 125px;
-    background: #071321;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    height: 130px;
+    padding: 5px;
 }
 
 .card-imagem img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: center;
-    display: block;
 }
-
-/* CONTEÚDO */
 
 .card-conteudo {
     padding: 12px;
 }
 
-.card-topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
-}
-
-.categoria-review {
-    color: #83a9ca;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.nota-review {
-    color: #83c7ff;
-    font-size: 12px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.card-conteudo h2 {
-    color: #eaf3fc;
-    font-size: 16px;
-    margin: 0 0 8px;
-    overflow-wrap: anywhere;
-}
-
-.descricao-review {
-    color: #a5b5c6;
-    font-size: 11px;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    overflow-wrap: anywhere;
-}
-
+.card-topo,
 .card-rodape {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 7px;
-
-    padding-top: 10px;
-    border-top: 1px solid #263b50;
 }
 
-.autor-review {
-    color: #8297ac;
-    font-size: 9px;
+.card-conteudo h2 {
+    margin: 10px 0;
+    font-size: 17px;
+}
+
+.descricao-review {
+    font-size: 13px;
+    margin-bottom: 12px;
 }
 
 .votos-review {
     display: flex;
-    gap: 8px;
-    color: #9cb6ce;
-    font-size: 10px;
-}
-
-/* CELULAR */
-
-@media (max-width: 520px) {
-    #avaliacoes {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
-
-    .card-avaliacao {
-        width: 100%;
-    }
-
-    .card-imagem {
-        height: 110px;
-    }
+    gap: 10px;
 }
