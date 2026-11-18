@@ -26,6 +26,8 @@ const dbConfig = {
     database: process.env.DB_NAME
 }
 
+const db = mysql.createPool(dbConfig);
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -435,6 +437,34 @@ app.get("/api/graficos", requerLogin, async (req, res) => {
     } catch (erro) {
         console.log(erro)
         res.status(500).json({erro: "Erro de comunicação com o Python"})
+    }
+})
+
+app.get("/api/perfil", requerLogin, async (req, res) => {
+    try{
+        const resultado = await consultar(`
+            SELECT nome FROM Usuario WHERE id = ?`, [req.idUsuario])
+            return res.json(resultado[0]["nome"])
+            
+    } catch (erro) {
+        console.log(erro)
+        res.status(500).json({ erro: "Erro ao buscar Nome"})
+    }
+})
+
+app.put("/api/perfil", requerLogin, async (req,res) => {
+    try {
+        const { nome } = req.body;
+ 
+        if(!nome || nome.trim() === "") {
+            return res.status(400).json({ erro: "Digite um nome válido"})
+        }
+        await consultar(`
+            UPDATE Usuario SET nome = ? WHERE id= ?`, [nome, req.idUsuario])
+            res.json({ mensagem: "Nome alterado com sucesso"})
+    } catch (erro) {
+        console.log(erro)
+        res.status(500).json({ erro: "Erro ao mudar nome."})
     }
 })
 

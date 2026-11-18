@@ -35,4 +35,8 @@ CLOUDINARY_CLOUD_NAME=zxvuu95i
 CLOUDINARY_API_KEY=734487522316168
 CLOUDINARY_API_SECRET=srFi83kqx4zZqcUucQ73h86QraY
 
+-SENHA do adm :()
+-- senha = JLGMadmin321Critical
+-- email = CriticalReviewADM@gmail.com
+
 FIM DOS AVISOS DO GUSTAVO

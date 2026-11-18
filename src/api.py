@@ -7,13 +7,11 @@ import os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from flask import Flask, request, jsonify
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
- 
  
 app = Flask(__name__)
  
@@ -73,8 +71,6 @@ def gerar_graficos():
     plt.close(fig)
     buffer.seek(0)
     return send_file(buffer, mimetype="image/png", as_attachment=False, download_name="graficos.png")
- 
-
  
  
 if __name__ == "__main__":
