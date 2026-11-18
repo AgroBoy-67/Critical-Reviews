@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auja Técnica</title>
+    <link rel="stylesheet" href="css/ajuda.css">
+    <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+    <video autoplay muted loop playsinline id="video-fundo">
+        <source src="css/fotos/CR.mp4" type="video/mp4">
+    </video> 
+
+<header class="header">
+        <div class="divLogo">
+            <a href="inicio.html"><img src="css/fotos/logo.png" alt="Logo" width="65px" class="logo"></a>
+        </div>
+        <nav class="nav">
+            <div>
+                <a href="inicio.html" class="aDoNav" id="logoTXT">Inicio</a>
+                <a href="inicio.html"><img src="css/fotos/inicio.png" width="65px" id="logoIMG"></a>
+            </div>
+            <div>
+                <a href="avaliar.html" class="aDoNav" id="avaliarTXT">Avaliar</a>
+                <a href="avaliar.html"><img src="css/fotos/avaliar.png" width="65px" id="avaliarIMG"></a>
+            </div>
+        </nav>
+        <a href="perfil.html" class="perfil-header">
+            <div class="divFoto">
+                <img src="css/fotos/semFoto.png" alt="Sem foto">
+                <p id="nomehead">Carregando...</p>
+            </div>
+        </a>
+        <div class="divConfig">
+            <a href="config.html" class="aDoNav"><img src="css/fotos/config.png" alt="Configurações" width="40px" class="engrenagem"></a>
+        </div>
+    </header>
+
+    <div class="chat-container">
+    <h2>Assistente Critical Reviews</h2>
+
+    <div id="mensagens">
+        <p class="bot">Olá! Como posso ajudar?</p>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="mensagem" placeholder="Digite sua mensagem...">
+
+        <button id="enviar">Enviar</button>
+    </div>
+
+</div>
+
+<script src="js/ajuda.js"></script>
+
+</body>
+</html>
